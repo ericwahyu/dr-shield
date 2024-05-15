@@ -3,6 +3,8 @@
 namespace App\Livewire\Auth\AuthLogin;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Illuminate\Support\Str;
@@ -42,25 +44,24 @@ class AuthLoginIndex extends Component
 
         $this->email = Str::lower($this->email);
 
-
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password], true)) {
 
             if (Auth::user()->status == 'active') {
                 // dd(Auth::check());
                 return redirect()->route('dashboard');
             } else {
-                // Session::flush();
+                Session::flush();
                 Auth::logout();
-                $this->reset('email, password');
+                $this->reset('email', 'password');
                 return $this->alert('error', 'Maaf !', [
                     'text' => "Akun Anda telah di non aktifkan !",
                 ]);
             }
         } else {
-            // Session::flush();
+            Session::flush();
             Auth::logout();
 
-            $this->reset('email, password');
+            $this->reset('email', 'password');
 
             return $this->alert('error', 'Gagal!', [
                 'text' => "Alamat Email atau Kata Sandi Anda salah!",

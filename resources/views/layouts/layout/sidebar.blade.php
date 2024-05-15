@@ -24,16 +24,28 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text" style="font-size: 15px;color: black;">DATA PELANGGAN</span>
         </li>
+        <li class="menu-item {{ Request::is('*pelanggan/daftar*') ? 'active' : '' }}">
+            <a href="{{ route('customer.list') }}" class="menu-link">
+                <i class="fa-regular fa-home-alt fa-fw me-2"></i>
+                <div>Daftar Pelanggan</div>
+            </a>
+        </li>
         <li class="menu-item {{ Request::is('*pelanggan/calon*') ? 'active' : '' }}">
             <a href="{{ route('customer.potential') }}" class="menu-link">
                 <i class="fa-regular fa-home-alt fa-fw me-2"></i>
                 <div>Calon Pelanggan</div>
             </a>
         </li>
-        <li class="menu-item {{ Request::is('*pelanggan/masuk*') ? 'active' : '' }}">
-            <a href="{{ route('customer.order') }}" class="menu-link">
+        <li class="menu-item {{ Request::is('*pelanggan/penjualan-toko*') ? 'active' : '' }}">
+            <a href="{{ route('customer.store.sale') }}" class="menu-link">
                 <i class="fa-regular fa-home-alt fa-fw me-2"></i>
-                <div>Pelanggan Masuk</div>
+                <div>Penjualan Toko</div>
+            </a>
+        </li>
+        <li class="menu-item {{ Request::is('*pelanggan/proyek*') ? 'active' : '' }}">
+            <a href="{{ route('customer.project') }}" class="menu-link">
+                <i class="fa-regular fa-home-alt fa-fw me-2"></i>
+                <div>Proyek</div>
             </a>
         </li>
         <li class="menu-item {{ Request::is('*pelanggan/persentase*') ? 'active' : '' }}">
@@ -45,7 +57,13 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text" style="font-size: 15px;color: black;">PESANAN</span>
         </li>
-        <li class="menu-item {{ Request::is('*pesanan/genteng*') ? 'active' : '' }}">
+        <li class="menu-item {{ Request::is('*pesanan/buat*') ? 'active' : '' }}">
+            <a href="{{ route('create.order') }}" class="menu-link">
+                <i class="fa-regular fa-home-alt fa-fw me-2"></i>
+                <div>Buat Pesanan</div>
+            </a>
+        </li>
+        {{-- <li class="menu-item {{ Request::is('*pesanan/genteng*') ? 'active' : '' }}">
             <a href="{{ route('order.roof') }}" class="menu-link">
                 <i class="fa-regular fa-home-alt fa-fw me-2"></i>
                 <div>Pesanan Genteng</div>
@@ -56,7 +74,7 @@
                 <i class="fa-regular fa-home-alt fa-fw me-2"></i>
                 <div>Pesanan UPVC</div>
             </a>
-        </li>
+        </li> --}}
         <li class="menu-item {{ Request::is('*pesanan/riwayat*') ? 'active' : '' }}">
             <a href="{{ route('order.history') }}" class="menu-link">
                 <i class="fa-regular fa-home-alt fa-fw me-2"></i>
@@ -78,6 +96,12 @@
                 <div>UPVC</div>
             </a>
         </li>
+        <li class="menu-item {{ Request::is('*perhitungan/aksesoris') ? 'active' : '' }}">
+            <a href="{{ route('calculation.accesories') }}" class="menu-link">
+                <i class="fa-regular fa-home-alt fa-fw me-2"></i>
+                <div>Aksesoris</div>
+            </a>
+        </li>
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text" style="font-size: 15px;color: black;">PRODUK</span>
         </li>
@@ -91,6 +115,12 @@
             <a href="{{ route('product.upvc') }}" class="menu-link">
                 <i class="fa-regular fa-home-alt fa-fw me-2"></i>
                 <div>UPVC</div>
+            </a>
+        </li>
+        <li class="menu-item {{ Request::is('*produk/aksesoris') ? 'active' : '' }}">
+            <a href="{{ route('product.accessories') }}" class="menu-link">
+                <i class="fa-regular fa-home-alt fa-fw me-2"></i>
+                <div>Aksesoris</div>
             </a>
         </li>
         <li class="menu-header small text-uppercase">

@@ -41,6 +41,7 @@
                 <thead class="table-light">
                     <tr>
                         <th class="text-center" style="width: 10px;">No</th>
+                        <th class="text-center">Kategori</th>
                         <th class="text-center">Nama</th>
                         <th class="text-center">Profile</th>
                         <th class="text-center">Panjang (mm)</th>
@@ -53,10 +54,11 @@
                     @forelse ($products as $result)
                         <tr>
                             <td class="text-center">{{ $products->currentPage() * $perPage - $perPage + $loop->iteration }}</td>
+                            <td class="text-center">{{ $result->category }}</td>
                             <td class="text-center">{{ $result->name }}</td>
                             <td class="text-center">{{ Str::title($result->profile) }}</td>
-                            <td class="text-center">{{ $result->length }}</td>
-                            <td class="text-center">{{ $result->width }}</td>
+                            <td class="text-center">{{ $result->effective_length }}</td>
+                            <td class="text-center">{{ $result->effective_width }}</td>
                             <td class="text-center"><b>Rp. {{ number_format($result->price, 0, ',', '.') }}</b></td>
                             </td>
                             <td class="text-center">

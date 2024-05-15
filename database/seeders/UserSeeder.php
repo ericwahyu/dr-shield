@@ -25,8 +25,8 @@ class UserSeeder extends Seeder
         $ewa->assignRole('master-admin');
 
         $super_admin = User::create([
-            'name'     => 'Super Admin',
-            'email'    => 'superadmin@gmail.com',
+            'name'     => 'Annisa',
+            'email'    => 'berlianaannisa1@gmail.com',
             'password' => Hash::make(123),
             'status'   => 'active'
         ]);
@@ -34,10 +34,10 @@ class UserSeeder extends Seeder
         $super_admin->assignRole('super-admin');
 
         $admin = User::create([
-            'name' => 'Admin',
-            'email'     => 'admin@gmail.com',
-            'password'  => Hash::make(123),
-            'status'    => 'active'
+            'name'     => 'Siska',
+            'email'    => 'dsiskautari5@gmail.com',
+            'password' => Hash::make(123),
+            'status'   => 'active'
         ]);
 
         $admin->assignRole('admin');

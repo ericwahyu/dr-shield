@@ -1,7 +1,7 @@
 @section('title', 'Riwayat Pesanan')
 <div>
     {{-- The best athlete wants his opponent at his best. --}}
-    @include('livewire.order.order-history.order-history-invoice-modal')
+    @include('livewire.order.order-history.order-history-detail')
     <div class="d-flex align-items-center">
         <div>
             <h3 class="fw-semibold mb-0">Riwayat Pesanan</h3>
@@ -50,45 +50,43 @@
                         <th class="text-center">Tanggal</th>
                         <th class="text-center" style="width: 10px;">No</th>
                         <th class="text-center">Kategori</th>
-                        <th class="text-center">Produk</th>
-                        <th class="text-center">Panjang (M)</th>
-                        <th class="text-center">Lebar (M)</th>
-                        <th class="text-center">Jumlah</th>
+                        <th class="text-center">Nama</th>
+                        <th class="text-center">No. Handphone</th>
+                        <th class="text-center">Alamat</th>
+                        <th class="text-center">kebutuhan</th>
+                        <th class="text-center">Kode Pesanan</th>
                         <th class="text-center">Total Harga</th>
                         <th class="text-center" style="width: 10px;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($order_histories as $result)
+                    @forelse ($orders as $result)
                         <tr>
-                            <td class="text-center">{{ $result->created_at->isoFormat('dddd, D MMMM Y') }}</td>
-                            <td class="text-center">{{ $order_histories->currentPage() * $perPage - $perPage + $loop->iteration }}</td>
+                            <td class="text-center">{{ $result?->order_date?->isoFormat('D MMMM Y') }}</td>
+                            <td class="text-center">{{ $orders->currentPage() * $perPage - $perPage + $loop->iteration }}</td>
                             <td class="text-center">
-                                @if ($result?->product?->is_roof == 1)
-                                    <span class="badge rounded-pill bg-dark bg-glow">Genteng</span>
-                                @elseif ($result?->product?->is_roof == 0)
-                                    <span class="badge rounded-pill bg-warning bg-glow">UPVC</span>
+                                @if ($result?->customer?->category == 'store')
+                                    <b>Toko</b>
+                                @elseif ($result?->customer?->category == 'project')
+                                    <b>Proyek</b>
                                 @endif
                             </td>
+                            <td class="text-center">{{ $result?->customer->name }}</td>
+                            <td class="text-center">0{{ $result?->customer->phone }}</td>
+                            <td class="text-center">{{ $result?->customer->address }}</td>
+                            <td class="text-center">{{ $result?->customer->needs }}</td>
+                            {{-- <td class="text-center">{{ $result?->customer->description }}</td> --}}
+                            <td class="text-center">{{ $result?->order_code }}</td>
+                            {{-- <td class="text-center"><b>{{ $result?->orderDetails->sum('total_price') }}</b></td> --}}
+                            <td class="text-center"><b>Rp. {{ number_format($result?->orderDetails?->sum('total_price'), 0, ',', '.') }}</b></td>
                             <td class="text-center">
-                                <div class="d-flex flex-column">
-                                    <span class="emp_name text-truncate">{{ $result?->product?->name }}</span>
-                                    <small class="emp_post text-truncate text-muted">{{ $result?->product?->profile }}</small>
-                                </div>
-                            </td>
-                            <td class="text-center">{{ $result?->length }}</td>
-                            <td class="text-center">{{ $result?->width }}</td>
-                            <td class="text-center">{{ $result?->total_item }}</td>
-                            <td class="text-center"><b>Rp. {{ number_format($result->total_price, 0, ',', '.') }}</b></td>
-                            <td class="text-center">
-                                {{-- <button class="btn btn-danger btn-sm" wire:click="deleteConfirm('{{ $result->id }}')" x-data="{ tooltip: 'Hapus' }" x-tooltip="tooltip"><i class="fa-solid fa-trash-alt fa-fw"></i></button>
-                                <button class="btn btn-warning btn-sm" wire:click="edit('{{ $result->id }}')" x-data="{ tooltip: 'Edit' }" x-tooltip="tooltip"><i class="fa-solid fa-pencil-alt fa-fw"></i></button> --}}
-                                <button class="btn btn-info btn-sm" wire:click="showInvoice('{{ $result->id }}')" x-data="{ tooltip: 'Lihat Nota Pembayaran' }" x-tooltip="tooltip"><i class="fa-solid fa-circle-info fa-fw"></i></button>
+                                <button class="btn btn-danger btn-sm" wire:click="deleteConfirm('{{ $result->id }}')" x-data="{ tooltip: 'Hapus' }" x-tooltip="tooltip"><i class="fa-solid fa-trash-alt fa-fw"></i></button>
+                                <button class="btn btn-info btn-sm" wire:click="detail('{{ $result->id }}')" x-data="{ tooltip: 'Detail' }" x-tooltip="tooltip"><i class="fa-solid fa-circle-info fa-fw"></i></button>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="10" class="fw-bold text-center">Belum Ada Data</td>
+                            <td colspan="11" class="fw-bold text-center">Belum Ada Data</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -96,8 +94,8 @@
         </div>
         <div class="card-body">
             <div class="row d-flex align-items-center g-3">
-                <div class="col-lg-6 col-12">Menampilkan {{ $order_histories->firstItem() }} sampai {{ $order_histories->lastItem() }} dari {{ $order_histories->total() }} hasil</div>
-                <div class="d-flex justify-content-end col-lg-6 col-12">{{ $order_histories->links('vendor.livewire.simple-tailwind') }}</div>
+                <div class="col-lg-6 col-12">Menampilkan {{ $orders->firstItem() }} sampai {{ $orders->lastItem() }} dari {{ $orders->total() }} hasil</div>
+                <div class="d-flex justify-content-end col-lg-6 col-12">{{ $orders->links('vendor.livewire.simple-tailwind') }}</div>
             </div>
         </div>
     </div>
@@ -106,10 +104,10 @@
     <script>
         $(document).ready(function() {
             Livewire.on("openModal", () => {
-                jQuery('#modal-payment').modal('show');
+                jQuery('#modal-detail').modal('show');
             });
             Livewire.on("closeModal", () => {
-                jQuery('#modal-payment').modal('hide');
+                jQuery('#modal-detail').modal('hide');
             });
         });
     </script>

@@ -76,13 +76,13 @@
                         <div class="col-md mb-md-0 mb-2">
                             <div class="form-check custom-option custom-option-basic">
                                 <label class="form-check-label custom-option-content" for="customRadioTemp2">
-                                    <input name="customRadioTemp" class="form-check-input" type="radio" wire:model.live="category_percentage" value="no-response" id="customRadioTemp2" {{ $category_percentage == 'no-response' ? "checked" : "" }}>
+                                    <input name="customRadioTemp" class="form-check-input" type="radio" wire:model.live="category_percentage" value="potential_customer" id="customRadioTemp2" {{ $category_percentage == 'potential_customer' ? "checked" : "" }}>
                                     <span class="custom-option-header">
-                                        <span class="h6 mb-0">Tidak Respon</span>
-                                        <span class="text-muted">{{ $this->percentageNoResponse()[0] }}%</span>
+                                        <span class="h6 mb-0">Calon Pelanggan</span>
+                                        <span class="text-muted">{{ $this->potentialCustomer()[0] }}%</span>
                                     </span>
                                     <span class="custom-option-body">
-                                        <small>{{ $this->percentageNoResponse()[1] }} Pelanggan.</small>
+                                        <small>{{ $this->potentialCustomer()[1] }} Pelanggan</small>
                                     </span>
                                 </label>
                             </div>
@@ -90,13 +90,13 @@
                         <div class="col-md mb-md-0 mb-2">
                             <div class="form-check custom-option custom-option-basic">
                                 <label class="form-check-label custom-option-content" for="customRadioTemp3">
-                                    <input name="customRadioTemp" class="form-check-input" type="radio" wire:model.live="category_percentage" value="negotiation" id="customRadioTemp3" {{ $category_percentage == 'negotiation' ? "checked" : "" }}>
+                                    <input name="customRadioTemp" class="form-check-input" type="radio" wire:model.live="category_percentage" value="store_sale_done" id="customRadioTemp3" {{ $category_percentage == 'store_sale_done' ? "checked" : "" }}>
                                     <span class="custom-option-header">
-                                        <span class="h6 mb-0">Negosiasi</span>
-                                        <span class="text-muted">{{ $this->percentageNegotiation()[0] }}%</span>
+                                        <span class="h6 mb-0">Penjualan Toko (Done)</span>
+                                        <span class="text-muted">{{ $this->storeSaleDoneCustomer()[0] }}%</span>
                                     </span>
                                     <span class="custom-option-body">
-                                        <small>{{ $this->percentageNegotiation()[1] }} Pelanggan.</small>
+                                        <small>{{ $this->storeSaleDoneCustomer()[1] }} Pelanggan</small>
                                     </span>
                                 </label>
                             </div>
@@ -104,13 +104,13 @@
                         <div class="col-md mb-md-0 mb-2">
                             <div class="form-check custom-option custom-option-basic">
                                 <label class="form-check-label custom-option-content" for="customRadioTemp4">
-                                    <input name="customRadioTemp" class="form-check-input" type="radio" wire:model.live="category_percentage" value="store" id="customRadioTemp4" {{ $category_percentage == 'store' ? "checked" : "" }}>
+                                    <input name="customRadioTemp" class="form-check-input" type="radio" wire:model.live="category_percentage" value="other-product" id="customRadioTemp4" {{ $category_percentage == 'other-product' ? "checked" : "" }}>
                                     <span class="custom-option-header">
-                                        <span class="h6 mb-0">Toko</span>
-                                        <span class="text-muted">{{ $this->percentageStore()[0] }}%</span>
+                                        <span class="h6 mb-0">Produk Lain</span>
+                                        <span class="text-muted">{{ $this->percentageOtherProduct()[0] }}%</span>
                                     </span>
                                     <span class="custom-option-body">
-                                        <small>{{ $this->percentageStore()[1] }} Pelanggan.</small>
+                                        <small>{{ $this->percentageOtherProduct()[1] }} Pelanggan</small>
                                     </span>
                                 </label>
                             </div>
@@ -118,13 +118,13 @@
                         <div class="col-md mb-md-0 mb-2">
                             <div class="form-check custom-option custom-option-basic">
                                 <label class="form-check-label custom-option-content" for="customRadioTemp5">
-                                    <input name="customRadioTemp" class="form-check-input" type="radio" wire:model.live="category_percentage" value="other-product" id="customRadioTemp5" {{ $category_percentage == 'other-product' ? "checked" : "" }}>
+                                    <input name="customRadioTemp" class="form-check-input" type="radio" wire:model.live="category_percentage" value="store" id="customRadioTemp5" {{ $category_percentage == 'store' ? "checked" : "" }}>
                                     <span class="custom-option-header">
-                                        <span class="h6 mb-0">Produk Lain</span>
-                                        <span class="text-muted">{{ $this->percentageOtherProduct()[0] }}%</span>
+                                        <span class="h6 mb-0">Toko</span>
+                                        <span class="text-muted">{{ $this->percentageStore()[0] }}%</span>
                                     </span>
                                     <span class="custom-option-body">
-                                        <small>{{ $this->percentageOtherProduct()[1] }} Pelanggan.</small>
+                                        <small>{{ $this->percentageStore()[1] }} Pelanggan</small>
                                     </span>
                                 </label>
                             </div>
@@ -132,13 +132,13 @@
                         <div class="col-md mb-md-0 mb-2">
                             <div class="form-check custom-option custom-option-basic">
                                 <label class="form-check-label custom-option-content" for="customRadioTemp6">
-                                    <input name="customRadioTemp" class="form-check-input" type="radio" wire:model.live="category_percentage" value="done" id="customRadioTemp6" {{ $category_percentage == 'done' ? "checked" : "" }}>
+                                    <input name="customRadioTemp" class="form-check-input" type="radio" wire:model.live="category_percentage" value="no-response" id="customRadioTemp6" {{ $category_percentage == 'no-response' ? "checked" : "" }}>
                                     <span class="custom-option-header">
-                                        <span class="h6 mb-0">Selesai</span>
-                                        <span class="text-muted">{{ $this->percentageDone()[0] }}%</span>
+                                        <span class="h6 mb-0">TIdak Respon</span>
+                                        <span class="text-muted">{{ $this->percentageNoResponse()[0] }}%</span>
                                     </span>
                                     <span class="custom-option-body">
-                                        <small>{{ $this->percentageDone()[1] }} Pelanggan.</small>
+                                        <small>{{ $this->percentageNoResponse()[1] }} Pelanggan</small>
                                     </span>
                                 </label>
                             </div>
@@ -179,6 +179,7 @@
                     <tr>
                         <th class="text-center">Tanggal</th>
                         <th class="text-center" style="width: 10px;">No</th>
+                        <th class="text-center">Kategori</th>
                         <th class="text-center">Nomor Handphone</th>
                         <th class="text-center">Nama</th>
                         <th class="text-center">Kebutuhan</th>
@@ -196,6 +197,13 @@
                         <tr>
                             <td class="text-center">{{ $result->created_at->isoFormat('dddd, D MMMM Y') }}</td>
                             <td class="text-center">{{ $customers->currentPage() * $perPage - $perPage + $loop->iteration }}</td>
+                            <td class="text-center">
+                                @if ($result?->category == 'store')
+                                    <b>Toko</b>
+                                @elseif ($result?->category == 'project')
+                                    <b>Proyek</b>
+                                @endif
+                            </td>
                             <td class="text-center">0{{ $result->phone }}</td>
                             <td class="text-center">{{ $result->name }}</td>
                             <td class="text-center">{{ $result->needs }}</td>

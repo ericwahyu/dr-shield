@@ -8,6 +8,19 @@
             <div class="modal-body">
                 <div class="row g-3">
                     <div class="col-12">
+                        <div class="form-label">Kategori <span class="text-danger">*</span></div>
+                        {{-- <input type="text" class="form-control @error('category') is-invalid @enderror" wire:model="category" placeholder=""> --}}
+                        <select class="form-select @error('category') is-invalid @enderror" id="category" wire:model="category" aria-label="Default select example">
+                            <option value=""selected style="display: none">-- Pilih Kategori --</option>
+                            <option value="RF Premium Series" {{ $category == 'RF Premium Series' ? "selected" : "" }}>RF Premium Series</option>
+                            <option value="OD Series" {{ $category == 'OD Series' ? "selected" : "" }}>OD Series</option>
+                            <option value="Aksesoris" {{ $category == 'Aksesoris' ? "selected" : "" }}>Aksesoris</option>
+                        </select>
+                        @error('category')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-12">
                         <div class="form-label">Nama <span class="text-danger">*</span></div>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" wire:model="name" placeholder="Contoh : Single Wall">
                         @error('name')
@@ -16,17 +29,17 @@
                     </div>
                     <div class="col-6">
                         <div class="form-label">Ukuran Panjang <span class="text-danger">*</span></div>
-                        <input type="number" class="form-control @error('length') is-invalid @enderror" wire:model="length" placeholder="Contoh : 2600">
+                        <input type="number" class="form-control @error('effective_length') is-invalid @enderror" wire:model="effective_length" placeholder="Contoh : 2600">
                         <div id="defaultFormControlHelp" class="form-text">Masukkan Satuan mm (milimeter)</div>
-                        @error('length')
+                        @error('effective_length')
                             <div class="invalid-feedback d-block">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="col-6">
                         <div class="form-label">Ukuran Lebar <span class="text-danger">*</span></div>
-                        <input type="number" class="form-control @error('width') is-invalid @enderror" wire:model="width" placeholder="Contoh : 110">
+                        <input type="number" class="form-control @error('effective_width') is-invalid @enderror" wire:model="effective_width" placeholder="Contoh : 110">
                         <div id="defaultFormControlHelp" class="form-text">Masukkan Satuan mm (milimeter)</div>
-                        @error('width')
+                        @error('effective_width')
                             <div class="invalid-feedback d-block">{{ $message }}</div>
                         @enderror
                     </div>

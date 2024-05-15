@@ -58,6 +58,7 @@
                     <div class="container-xxl flex-grow-1 container-p-y">
                         @yield('content')
                     </div>
+                    <livewire:change-password wire:model="datas"/>
                     @include('layouts.layout.footer')
                     <div class="content-backdrop fade"></div>
                 </div>

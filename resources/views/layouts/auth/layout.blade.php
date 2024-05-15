@@ -14,7 +14,7 @@
 <!-- beautify ignore:start -->
 
 
-<html lang="en" class="light-style layout-wide  customizer-hide" dir="ltr" data-theme="theme-default" data-assets-path="{{ asset('assets/admin/') }}" data-template="vertical-menu-template">
+<html lang="en" class="light-style layout-wide customizer-hide" dir="ltr" data-theme="theme-default" data-assets-path="{{ asset('assets/admin/') }}" data-template="vertical-menu-template">
 
     <head>
         <meta charset="utf-8" />
@@ -177,7 +177,7 @@
         <!-- Core JS -->
         <!-- build:js assets/vendor/js/core.js -->
 
-        @yield('scripts')
+        @stack('scripts')
         <script src="{{ asset('assets/admin/vendor/libs/jquery/jquery.js') }}"></script>
         <script src="{{ asset('assets/admin/vendor/libs/popper/popper.js') }}"></script>
         <script src="{{ asset('assets/admin/vendor/js/bootstrap.js') }}"></script>
@@ -197,6 +197,7 @@
 
         <!-- Main JS -->
         <script src="{{ asset('assets/admin/js/main.js')  }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <x-livewire-alert::scripts />
         <x-livewire-alert::flash />
 

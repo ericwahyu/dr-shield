@@ -14,7 +14,7 @@ use Throwable;
 class ProductRoofIndex extends Component
 {
     use LivewireAlert, WithPagination;
-    public $product, $name, $profile, $length, $width, $price;
+    public $product, $category, $name, $profile, $effective_length, $effective_width, $price;
     public $perPage = 10, $search;
 
     public function render()
@@ -22,7 +22,7 @@ class ProductRoofIndex extends Component
         $products = Product::search($this->search);
 
         return view('livewire.product.product-roof.product-roof-index', [
-            'products' => $products->whereIsRoof(1)->paginate($this->perPage),
+            'products' => $products->whereCalculated('proof')->paginate($this->perPage),
         ])->extends('layouts.layout.app')->section('content');
     }
 
@@ -34,18 +34,19 @@ class ProductRoofIndex extends Component
 
     public function closeModal()
     {
-        $this->reset('product', 'name', 'profile', 'length', 'width', 'price');
+        $this->reset('product', 'category', 'name', 'profile', 'effective_length', 'effective_width', 'price');
         $this->dispatch('closeModal');
     }
 
     public function saveData()
     {
         $this->validate([
-            'name'    => 'required',
-            'profile' => 'required',
-            'length'  => 'required',
-            'width'   => 'required',
-            'price'   => 'required',
+            'category'         => 'required',
+            'name'             => 'required',
+            'profile'          => 'required',
+            'effective_length' => 'required',
+            'effective_width'  => 'required',
+            'price'            => 'required',
         ]);
 
         try {
@@ -54,12 +55,13 @@ class ProductRoofIndex extends Component
                 Product::updateOrCreate(
                     ['id' => $this->product?->id],
                     [
-                        'name'    => $this->name,
-                        'profile' => $this->profile,
-                        'length'  => $this->length,
-                        'width'   => $this->width,
-                        'price'   => $this->price,
-                        'is_roof' => 1,
+                        'category'         => $this->category,
+                        'name'             => $this->name,
+                        'profile'          => $this->profile,
+                        'effective_length' => $this->effective_length,
+                        'effective_width'  => $this->effective_width,
+                        'price'            => $this->price,
+                        'is_roof'          => 1,
                     ]
                 );
             });
@@ -86,11 +88,12 @@ class ProductRoofIndex extends Component
     {
         $this->product = Product::find($product_id);
 
-        $this->name    = $this->product?->name;
-        $this->profile = $this->product?->profile;
-        $this->length  = $this->product?->length;
-        $this->width   = $this->product?->width;
-        $this->price   = $this->product?->price;
+        $this->category         = $this->product?->category;
+        $this->name             = $this->product?->name;
+        $this->profile          = $this->product?->profile;
+        $this->effective_length = $this->product?->effective_length;
+        $this->effective_width  = $this->product?->effective_width;
+        $this->price            = $this->product?->price;
 
         $this->dispatch('openModal');
     }

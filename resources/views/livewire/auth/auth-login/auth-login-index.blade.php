@@ -81,9 +81,9 @@
 
             <p class="text-center">
                 <span>Belum Punya Akun ? </span>
-                {{-- <a href="{{ route('auth.register') }}">
+                <a href="{{ route('auth.register') }}">
                     <span>Buat Akun</span>
-                </a> --}}
+                </a>
             </p>
 
             {{-- <div class="divider my-4">

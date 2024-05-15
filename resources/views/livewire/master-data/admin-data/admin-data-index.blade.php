@@ -63,6 +63,7 @@
                             <td class="text-center">
                                 <button class="btn btn-danger btn-sm" wire:click="deleteConfirm('{{ $result->id }}')" x-data="{ tooltip: 'Hapus' }" x-tooltip="tooltip"><i class="fa-solid fa-trash-alt fa-fw"></i></button>
                                 <button class="btn btn-warning btn-sm" wire:click="edit('{{ $result->id }}')" x-data="{ tooltip: 'Edit' }" x-tooltip="tooltip"><i class="fa-solid fa-pencil-alt fa-fw"></i></button>
+                                <button class="btn btn-dark btn-sm" wire:click="resetConfirm('{{ $result->id }}')" x-data="{ tooltip: 'Reset Password' }" x-tooltip="tooltip"><i class="fa-solid fa-repeat fa-fw"></i></button>
                             </td>
                         </tr>
                     @empty

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Order\Order;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,12 +15,21 @@ class Customer extends Model
 
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'date' => 'date'
+    ];
+
     public function scopeSearch(Builder $query, $term): void
     {
         $term = "%$term%";
 
         $query->where(function ($query) use ($term) {
-            $query->whereAny(['name', 'phone', 'needs', 'address', 'store', 'description'], 'LIKE', $term);
+            $query->whereAny(['name', 'needs', 'phone', 'address', 'store', 'description'], 'LIKE', $term);
         });
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'customer_id', 'id');
     }
 }

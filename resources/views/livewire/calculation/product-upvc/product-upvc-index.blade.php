@@ -11,7 +11,7 @@
     </div>
     <hr class="my-3">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-7">
             <div class="card mb-4">
                 <h5 class="card-header">Form Ukuran</h5>
                 <div class="card-body">
@@ -38,7 +38,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="mb-3">
-                                <label for="width" class="form-label">&ensp;</label>
+                                <label for="width" class="form-label">&ensp;&ensp;&ensp;&ensp;&ensp;</label>
                                 <button type="button" class="btn btn-success btn-sm p-3"wire:click="productCalculator()">Hitung</button>
                             </div>
                         </div>
@@ -63,32 +63,32 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div class="card mb-4">
                 <h5 class="card-header">Hasil Perhitungan</h5>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <div class="list-group list-group-flush">
                                 @if ($length > 12)
                                     <span class="list-group-item">@if ($length && $width && $get_product) ({{ $length }} : {{ $rate_roundup }}) x ({{ $width_mm }} : {{ $effective_width_product }} x {{ $rate_roundup }}) @endif</span>
                                     <span class="list-group-item">@if ($length && $width && $get_product) {{ $length_value_1 }} x ({{ $width_value_1 }} x {{ $rate_roundup }}) @endif</span>
                                     <span class="list-group-item">@if ($length && $width && $get_product) {{ $length_roundup }} x ({{ $width_roundup }} x {{ $rate_roundup }}) @endif</span>
-                                    <span class="list-group-item">@if ($length && $width && $get_product) {{ $length_roundup }} x {{ $width_roundupx2 }} @endif</span>
-                                    <span class="list-group-item">@if ($length && $width && $get_product) {{ $count_item }} Lembar @endif</span>
+                                    <span class="list-group-item">@if ($length && $width && $get_product) {{ $length_roundup }} x {{ $width_roundupx2 }} Lembar x Rp. {{ number_format($get_product?->price, 0, ',', '.') }} (per Meter) @endif</span>
+                                    {{-- <span class="list-group-item">@if ($length && $width && $get_product) {{ $count_item }} Lembar @endif</span> --}}
                                     <span class="list-group-item"></span>
                                 @else
                                     <span class="list-group-item">@if ($length && $width && $get_product) {{ $length }} x ({{ $width_mm }} : {{ $effective_width_product }}) @endif</span>
                                     <span class="list-group-item">@if ($length && $width && $get_product) {{ $length }} x {{ $width_value_2 }} @endif</span>
-                                    <span class="list-group-item">@if ($length && $width && $get_product) {{ $length }} x {{ $width_roundup }} @endif</span>
-                                    <span class="list-group-item">@if ($length && $width && $get_product) {{ $count_item }} Lembar @endif</span>
+                                    <span class="list-group-item">@if ($length && $width && $get_product) {{ $length }} x {{ $width_roundup }} Lembar x Rp. {{ number_format($get_product?->price, 0, ',', '.') }} (per Meter) @endif</span>
+                                    {{-- <span class="list-group-item">@if ($length && $width && $get_product) {{ $count_item }} Lembar @endif</span> --}}
                                     <span class="list-group-item"></span>
                                 @endif
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="list-group list-group-flush">
-                                <span class="list-group-item">@if ($length && $width && $get_product) {{ $count_item }} x Rp. {{ number_format($get_product?->price, 0, ',', '.') }} (per Lembar) @endif</span>
+                                {{-- <span class="list-group-item">@if ($length && $width && $get_product) {{ $count_item }} x Rp. {{ number_format($get_product?->price, 0, ',', '.') }} (per Lembar) @endif</span> --}}
                                 <span class="list-group-item">@if ($length && $width && $get_product) <b>Rp. {{ number_format($grand_total, 0, ',', '.') }}</b> @endif</span>
                                 <span class="list-group-item"></span>
                             </div>

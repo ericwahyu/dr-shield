@@ -30,7 +30,7 @@ class CustomerOrderIndex extends Component
         }
 
         return view('livewire.customer.customer-order.customer-order-index', [
-            'customers' => $customers->whereResponse('done')->paginate($this->perPage),
+            'customers' => $customers->whereResponse('done')->latest()->paginate($this->perPage),
         ])->extends('layouts.layout.app')->section('content');
     }
 
@@ -74,9 +74,9 @@ class CustomerOrderIndex extends Component
         $this->validate([
             'name'        => 'required',
             'phone'       => 'required|numeric|digits_between:9,15',
-            'needs'       => 'required',
-            'address'     => 'required',
-            'store'       => 'required',
+            'needs'       => 'nullable',
+            'address'     => 'nullable',
+            'store'       => 'nullable',
             'description' => 'nullable',
             'response'    => 'required',
             'total_price' => 'nullable',

@@ -232,7 +232,7 @@ th {
 
 .bg-menu-theme.menu-vertical .menu-item.active>.menu-link:not(.menu-toggle) {
     /* background: linear-gradient(72.47deg, #2F0B15 22.16%, #CF0000 76.47%); */
-    background: linear-gradient(72.47deg, #CF0000 40.16%, #121212 66.47%);;
+    background: linear-gradient(72.47deg, #CF0000 40.16%, #CF0000 66.47%);;
     box-shadow: 0 2px 6px 0 #CF000061;
 }
 

@@ -14,7 +14,7 @@ use Throwable;
 class ProductUpvcIndex extends Component
 {
     use LivewireAlert, WithPagination;
-    public $product, $name, $profile, $effective_width, $price;
+    public $product, $category, $name, $profile, $effective_width, $price;
     public $perPage = 10, $search;
 
     public function render()
@@ -22,7 +22,7 @@ class ProductUpvcIndex extends Component
         $products = Product::search($this->search);
 
         return view('livewire.product.product-upvc.product-upvc-index', [
-            'products' => $products->whereIsRoof(0)->paginate($this->perPage),
+            'products' => $products->whereCalculated('upvc')->paginate($this->perPage),
         ])->extends('layouts.layout.app')->section('content');
     }
 
@@ -34,17 +34,18 @@ class ProductUpvcIndex extends Component
 
     public function closeModal()
     {
-        $this->reset('product', 'name', 'profile', 'effective_width', 'price');
+        $this->reset('product', 'category', 'name', 'profile', 'effective_width', 'price');
         $this->dispatch('closeModal');
     }
 
     public function saveData()
     {
         $this->validate([
-            'name'    => 'required',
-            'profile' => 'required',
-            'effective_width'   => 'required',
-            'price'   => 'required',
+            'category'            => 'required',
+            'name'            => 'required',
+            'profile'         => 'required',
+            'effective_width' => 'required',
+            'price'           => 'required',
         ]);
 
         try {
@@ -53,6 +54,7 @@ class ProductUpvcIndex extends Component
                 Product::updateOrCreate(
                     ['id' => $this->product?->id],
                     [
+                        'category'        => $this->category,
                         'name'            => $this->name,
                         'profile'         => $this->profile,
                         'effective_width' => $this->effective_width,
@@ -84,6 +86,7 @@ class ProductUpvcIndex extends Component
     {
         $this->product = Product::find($product_id);
 
+        $this->category        = $this->product?->category;
         $this->name            = $this->product?->name;
         $this->profile         = $this->product?->profile;
         $this->effective_width = $this->product?->effective_width;

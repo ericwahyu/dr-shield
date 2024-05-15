@@ -20,8 +20,14 @@ class ProductRoofIndex extends Component
     public function render()
     {
         return view('livewire.calculation.product-roof.product-roof-index', [
-            'products' => Product::whereIsRoof(1)->get()
+            'products' => Product::whereCalculated('proof')->get()
         ])->extends('layouts.layout.app')->section('content');
+    }
+
+    public function hydrate()
+    {
+        $this->resetErrorBag();
+        $this->resetValidation();
     }
 
     public function productCalculator()
@@ -38,8 +44,8 @@ class ProductRoofIndex extends Component
         //1
         $this->length_mm      = $this->length * 1000;
         $this->width_mm       = $this->width * 1000;
-        $this->length_product = $this->get_product?->length;
-        $this->width_product  = $this->get_product?->width;
+        $this->length_product = $this->get_product?->effective_length;
+        $this->width_product  = $this->get_product?->effective_width;
 
         //2
         $this->length_value_1 = number_format($this->length_mm / $this->length_product, 2, ',', '.');

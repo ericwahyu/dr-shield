@@ -15,21 +15,23 @@ use Throwable;
 class PotentialCustomerIndex extends Component
 {
     use LivewireAlert, WithPagination;
-    public $id_data, $name, $phone, $needs, $address, $store, $description, $response, $filter_date;
+    public $id_data, $date, $category, $name, $phone, $needs, $address, $store, $description, $response, $filter_date;
     public $perPage = 10, $search;
 
     public function render()
     {
-        $customers = Customer::search($this->search);
+        $customers = Customer::whereCategory('store')->search($this->search);
 
         return view('livewire.customer.potential-customer.potential-customer-index', [
-            'customers' => $customers->whereNot('response', 'done')->whereDate('created_at', $this->filter_date)->paginate($this->perPage),
+            'customers' => $customers->whereIn('response', ['store', 'going-store-looking-stock', 'not-yet-development'])->paginate($this->perPage),
         ])->extends('layouts.layout.app')->section('content');
     }
 
     public function mount()
     {
+        $this->date = Carbon::now()->format('Y-m-d');
         $this->filter_date = Carbon::now()->format('Y-m-d');
+        $this->category = 'store';
     }
 
     public function hydrate()
@@ -40,7 +42,7 @@ class PotentialCustomerIndex extends Component
 
     public function closeModal()
     {
-        $this->reset('id_data', 'name', 'phone', 'needs', 'address', 'store', 'description', 'response');
+        $this->reset('id_data', 'date', 'name', 'phone', 'needs', 'address', 'store', 'description', 'response');
         $this->dispatch('closeModal');
     }
 
@@ -52,13 +54,15 @@ class PotentialCustomerIndex extends Component
         if ($phone[0] == '6' && $phone[1] == '2') $phone = substr($phone, 2);
         $this->phone = intval($phone);
 
-        // dd($this->id_data, $this-> name, $this->phone, $this->needs, $this->address, $this->store, $this->response);
+        // dd($this->id_data, $this->name, $this->phone, $this->needs, $this->address, $this->store, $this->response);
         $this->validate([
+            'date'        => 'required|date',
+            'category'    => 'required',
             'name'        => 'required',
-            'phone'       => 'required|numeric|digits_between:9,15',
-            'needs'       => 'required',
-            'address'     => 'required',
-            'store'       => 'required',
+            'phone'       => 'required|numeric|digits_between:4,15',
+            'needs'       => 'nullable',
+            'address'     => 'nullable',
+            'store'       => 'nullable',
             'description' => 'nullable',
             'response'    => 'required',
         ]);
@@ -69,6 +73,8 @@ class PotentialCustomerIndex extends Component
                 Customer::updateOrCreate(
                     ['id' => $this->id_data],
                     [
+                        'date'        => $this->date,
+                        'category'    => $this->category,
                         'name'        => $this->name,
                         'phone'       => $this->phone,
                         'needs'       => $this->needs,
@@ -102,14 +108,16 @@ class PotentialCustomerIndex extends Component
     {
         $get_customer = Customer::find($id_data);
 
-        $this->id_data     = $get_customer->id;
-        $this->name        = $get_customer->name;
-        $this->phone       = '0' . $get_customer->phone;
-        $this->needs       = $get_customer->needs;
-        $this->address     = $get_customer->address;
-        $this->store       = $get_customer->store;
-        $this->description = $get_customer->description;
-        $this->response    = $get_customer->response;
+        $this->id_data     = $get_customer?->id;
+        $this->date        = $get_customer?->date->format('Y-m-d');
+        $this->category    = $get_customer?->category;
+        $this->name        = $get_customer?->name;
+        $this->phone       = '0' . $get_customer?->phone;
+        $this->needs       = $get_customer?->needs;
+        $this->address     = $get_customer?->address;
+        $this->store       = $get_customer?->store;
+        $this->description = $get_customer?->description;
+        $this->response    = $get_customer?->response;
 
         $this->dispatch('openModal');
     }
@@ -136,7 +144,7 @@ class PotentialCustomerIndex extends Component
             //code...
             DB::transaction(function () use ($data) {
                 $result = Customer::find($data['inputAttributes']['id']);
-                $result->delete();
+                $result?->delete();
             });
 
             DB::commit();

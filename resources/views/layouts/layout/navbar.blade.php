@@ -38,6 +38,12 @@
                         </div>
                     </li>
                     <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2" href="#" data-bs-toggle="modal" data-bs-target="#modal-change-password">
+                            <i class="fa-regular fa-key fa-fw"></i>
+                            <span class="align-middle">Ubah Kata Sandi</span>
+                        </a>
+                    </li>
+                    <li>
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>

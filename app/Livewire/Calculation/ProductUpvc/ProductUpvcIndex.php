@@ -21,8 +21,14 @@ class ProductUpvcIndex extends Component
     public function render()
     {
         return view('livewire.calculation.product-upvc.product-upvc-index', [
-            'products' => Product::whereIsRoof(0)->get()
+            'products' => Product::whereCalculated('upvc')->get()
         ])->extends('layouts.layout.app')->section('content');
+    }
+
+    public function hydrate()
+    {
+        $this->resetErrorBag();
+        $this->resetValidation();
     }
 
     public function productCalculator()

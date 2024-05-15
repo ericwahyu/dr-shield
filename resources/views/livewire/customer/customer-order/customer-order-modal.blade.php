@@ -22,21 +22,21 @@
                         @enderror
                     </div>
                     <div class="col-6">
-                        <div class="form-label">Kebutuhan <span class="text-danger">*</span></div>
+                        <div class="form-label">Kebutuhan </div>
                         <textarea class="form-control @error('needs') is-invalid @enderror" id="needs" rows="2" wire:model="needs" placeholder="Contoh : Perlangakapan Bahan Pembangunan" disabled></textarea>
                         @error('needs')
                             <div class="invalid-feedback d-block">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="col-6">
-                        <div class="form-label">Alamat <span class="text-danger">*</span></div>
+                        <div class="form-label">Alamat </div>
                         <textarea class="form-control @error('address') is-invalid @enderror" id="address" rows="2" wire:model="address" placeholder="Contoh : Jl. Raya Tapi Sempit" disabled></textarea>
                         @error('address')
                             <div class="invalid-feedback d-block">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="col-12">
-                        <div class="form-label">Toko <span class="text-danger">*</span></div>
+                        <div class="form-label">Toko </div>
                         <input type="text" class="form-control @error('store') is-invalid @enderror" wire:model="store" placeholder="Contoh : Toko Tanah Abang" disabled>
                         @error('store')
                             <div class="invalid-feedback d-block">{{ $message }}</div>

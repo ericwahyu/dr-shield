@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -98,7 +99,7 @@ class AdminDataIndex extends Component
 
     public function getListeners()
     {
-        return ['delete'];
+        return ['delete', 'resetPassword'];
     }
 
     public function delete($data)
@@ -125,6 +126,46 @@ class AdminDataIndex extends Component
 
         return $this->alert('success', 'Berhasil', [
             'text' => 'Data Admin Telah Dihapus !'
+        ]);
+    }
+
+    public function resetConfirm($id)
+    {
+        $this->confirm('Konfirmasi', [
+            'inputAttributes'    => ['id' => $id],
+            'onConfirmed'        => 'resetPassword',
+            'text'               => 'Akun ini akan reset password menjadi 123',
+            'reverseButtons'     => 'true',
+            'confirmButtonColor' => '#24B464',
+        ]);
+    }
+
+    public function resetPassword($data)
+    {
+        try {
+            //code...
+            DB::transaction(function () use ($data) {
+                $result = User::find($data['inputAttributes']['id']);
+                $result->update([
+                    'password' => Hash::make(123)
+                ]);
+            });
+
+            DB::commit();
+        } catch (Throwable | Exception $e) {
+            DB::rollBack();
+
+            Log::error($e->getMessage());
+
+            return $this->alert('error', 'Maaf', [
+                'text' => 'Terjadi Kesalahan Saat Reset Password!'
+            ]);
+        }
+
+        $this->closeModal();
+
+        return $this->alert('success', 'Berhasil', [
+            'text' => 'Password akun telah terreset !'
         ]);
     }
 }

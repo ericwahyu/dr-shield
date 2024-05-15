@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->enum('category', ['RF Premium Series', 'OD Series', 'Aksesoris'])->nullable();
             $table->string('name')->nullable();
             $table->enum('profile', ['doff', 'translucent'])->nullable();
-            $table->bigInteger('length')->nullable();
-            $table->bigInteger('width')->nullable();
+            $table->bigInteger('effective_length')->nullable();
             $table->bigInteger('effective_width')->nullable();
-            $table->boolean('is_roof')->nullable();
+            $table->enum('calculated', ['proof', 'upvc', 'accessories', 'pieces'])->nullable();
             $table->bigInteger('price')->nullable();
+            $table->enum('price_unit', ['M', 'Lembar', '40 pcs'])->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
