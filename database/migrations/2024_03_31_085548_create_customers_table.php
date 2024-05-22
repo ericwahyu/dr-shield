@@ -16,13 +16,13 @@ return new class extends Migration
             $table->date('date')->nullable();
             $table->enum('category', ['store', 'project', 'e-commerse'])->nullable();
             $table->string('name')->nullable();
-            $table->bigInteger('phone')->nullable();
+            $table->string('phone')->nullable();
             $table->text('needs')->nullable();
             $table->text('address')->nullable();
             $table->text('store')->nullable();
             $table->text('description')->nullable();
             $table->enum('response', ['no-response', 'going-store-looking-stock', 'store', 'stock-empty-awaiting-stock', 'only-question', 'used-other-product', 'not-yet-development', 'negotiation', 'done'])->nullable();
-            $table->bigInteger('total_price')->nullable();
+            // $table->bigInteger('total_price')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

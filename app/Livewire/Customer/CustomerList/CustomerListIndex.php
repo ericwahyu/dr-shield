@@ -11,10 +11,12 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Throwable;
+use Illuminate\Support\Str;
 
 class CustomerListIndex extends Component
 {
     use LivewireAlert, WithPagination;
+    protected $paginationTheme = 'bootstrap';
     public $id_data, $date, $category, $name, $phone, $needs, $address, $store, $description, $response, $filter_date;
     public $perPage = 10, $search;
 
@@ -23,7 +25,7 @@ class CustomerListIndex extends Component
         $customers = Customer::search($this->search);
 
         return view('livewire.customer.customer-list.customer-list-index', [
-            'customers' => $customers->latest()->paginate($this->perPage)
+            'customers' => $customers->orderBy('date', 'desc')->latest()->paginate($this->perPage)
         ])->extends('layouts.layout.app')->section('content');
     }
 
@@ -40,7 +42,7 @@ class CustomerListIndex extends Component
 
     public function closeModal()
     {
-        $this->reset('id_data', 'date', 'category', 'name', 'phone', 'needs', 'address', 'store', 'description', 'response');
+        $this->reset('id_data', 'name', 'phone', 'needs', 'address', 'store', 'description', 'response');
         $this->dispatch('closeModal');
     }
 
@@ -64,17 +66,20 @@ class CustomerListIndex extends Component
 
     public function saveData()
     {
+        $this->phone = Str::replace(['-', ' '], '', $this->phone);
+
         $phone = intval($this->phone);
         $phone = "{$phone}";
 
         if ($phone[0] == '6' && $phone[1] == '2') $phone = substr($phone, 2);
         $this->phone = intval($phone);
+        // dd($this->phone);
 
         // dd($this->id_data, $this->name, $this->phone, $this->needs, $this->address, $this->store, $this->response);
         $this->validate([
             'date'        => 'required|date',
             'category'    => 'required',
-            'name'        => 'required',
+            'name'        => 'nullable',
             'phone'       => 'required|numeric|digits_between:4,15',
             'needs'       => 'nullable',
             'address'     => 'nullable',
@@ -92,7 +97,7 @@ class CustomerListIndex extends Component
                         'date'        => $this->date,
                         'category'    => $this->category,
                         'name'        => $this->name,
-                        'phone'       => $this->phone,
+                        'phone'       => '0'.$this->phone,
                         'needs'       => $this->needs,
                         'address'     => $this->address,
                         'store'       => $this->store,

@@ -72,12 +72,12 @@
                                     <b>Proyek</b>
                                 @endif
                             </td>
-                            <td class="text-center">0{{ $result?->phone }}</td>
-                            <td class="text-center">{{ $result?->name }}</td>
-                            <td class="text-center">{{ $result?->needs }}</td>
-                            <td class="text-center">{{ $result?->address }}</td>
-                            <td class="text-center">{{ $result?->store }}</td>
-                            <td class="text-center">{{ $result?->description }}</td>
+                            <td class="text-center">{{ $result?->phone }}</td>
+                            <td class="text-center">{{ $result?->name ? $result?->name : '-' }}</td>
+                            <td class="text-center">{{ $result?->needs ? $result?->needs : '-' }}</td>
+                            <td class="text-center">{{ $result?->address ? $result?->address : '-' }}</td>
+                            <td class="text-center">{{ $result?->store ? $result?->store : '-' }}</td>
+                            <td class="text-center">{{ $result?->description ? $result?->description : '-' }}</td>
                             <td class="text-center">
                                 @if ($result?->response == 'no-response')
                                     <span class="badge rounded-pill bg-dark bg-glow">Tidak Respon</span>
@@ -113,9 +113,9 @@
             </table>
         </div>
         <div class="card-body">
-            <div class="row d-flex align-items-center g-3">
-                <div class="col-lg-6 col-12">Menampilkan {{ $customers?->firstItem() }} sampai {{ $customers?->lastItem() }} dari {{ $customers?->total() }} hasil</div>
-                <div class="d-flex justify-content-end col-lg-6 col-12">{{ $customers?->links('vendor.livewire.simple-tailwind') }}</div>
+            <div class="row align-items-center g-3">
+                <div class="col-lg-6 col-12">Menampilkan {{ $customers->firstItem() }} sampai {{ $customers->lastItem() }} dari {{ $customers->total() }} hasil</div>
+                <div class="col-lg-6 col-12 text-align-end">{{ $customers->onEachSide(1)->links('vendor.livewire.custom-paginate') }}</div>
             </div>
         </div>
     </div>

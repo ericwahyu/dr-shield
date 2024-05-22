@@ -60,8 +60,9 @@ class ProductRoofIndex extends Component
                         'profile'          => $this->profile,
                         'effective_length' => $this->effective_length,
                         'effective_width'  => $this->effective_width,
+                        'calculated'       => 'proof',
                         'price'            => $this->price,
-                        'is_roof'          => 1,
+                        'price_unit'       => 'Lembar',
                     ]
                 );
             });

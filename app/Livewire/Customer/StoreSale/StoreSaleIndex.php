@@ -5,6 +5,7 @@ namespace App\Livewire\Customer\StoreSale;
 use App\Models\Customer;
 use App\Models\Order\Order;
 use App\Models\Order\OrderDetail;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -17,6 +18,7 @@ use Illuminate\Support\Str;
 class StoreSaleIndex extends Component
 {
     use LivewireAlert, WithPagination;
+    public $get_order;
     public $id_data, $date, $category, $name, $phone, $needs, $address, $store, $description, $response, $total_price;
     public $start_date, $end_date, $grand_total;
     public $perPage = 10, $search;
@@ -52,7 +54,7 @@ class StoreSaleIndex extends Component
 
     public function closeModal()
     {
-        $this->reset('id_data', 'date', 'category', 'name', 'phone', 'needs', 'address', 'store', 'description', 'response', 'total_price');
+        $this->reset('id_data', 'date', 'category', 'name', 'phone', 'needs', 'address', 'store', 'description', 'response', 'total_price', 'get_order');
         $this->dispatch('closeModal');
     }
 
@@ -137,5 +139,29 @@ class StoreSaleIndex extends Component
         return $this->alert('success', 'Berhasil', [
             'text' => 'Data Penjualan Toko Telah Disimpan !'
         ]);
+    }
+
+    public function detail($order_id)
+    {
+        $this->get_order = Order::find($order_id);
+
+        return $this->dispatch('openModalDetail');
+    }
+
+    public function printOrder($get_order_id)
+    {
+        // $this->dispatch('closeModal');
+
+        Order::find($get_order_id)?->update([
+            'print_at' => Carbon::now()
+        ]);
+
+        $this->get_order = Order::find($get_order_id);
+
+        return $this->dispatch('openModalDetail');
+
+        // return $this->alert('success', 'Berhasil', [
+        //     'text' => 'Data Pelanggan Telah Disimpan !'
+        // ]);
     }
 }

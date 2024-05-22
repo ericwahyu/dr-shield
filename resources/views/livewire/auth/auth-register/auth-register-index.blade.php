@@ -22,6 +22,9 @@
 @endsection
 <div>
     {{-- To attain knowledge, add things every day; To attain wisdom, subtract things every day. --}}
+    <div wire:loading.block wire:target="register">
+        @include('layouts.layout.loading-screen')
+    </div>
     <div class="card">
         <div class="card-body">
           <!-- Logo -->

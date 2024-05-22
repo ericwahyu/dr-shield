@@ -2,6 +2,7 @@
 <div>
     {{-- Care about people's approval and you will be their prisoner. --}}
     @include('livewire.customer.store-sale.store-sale-modal')
+    @include('livewire.customer.store-sale.order-history-detail')
     <div class="d-flex align-items-center">
         <div>
             <h3 class="fw-semibold mb-0">Penjualan Toko</h3>
@@ -125,7 +126,8 @@
                             <td class="text-center"><b>Rp. {{ number_format($result?->orderDetails?->sum('total_price'), 0, ',', '.') }}</b></td>
                             <td class="text-center">
                                 <button class="btn btn-danger btn-sm" wire:click="deleteConfirm('{{ $result->id }}')" x-data="{ tooltip: 'Hapus' }" x-tooltip="tooltip"><i class="fa-solid fa-trash-alt fa-fw"></i></button>
-                                <button class="btn btn-warning btn-sm" wire:click="edit('{{ $result->id }}')" x-data="{ tooltip: 'Edit' }" x-tooltip="tooltip"><i class="fa-solid fa-pencil-alt fa-fw"></i></button>
+                                {{-- <button class="btn btn-warning btn-sm" wire:click="edit('{{ $result->id }}')" x-data="{ tooltip: 'Edit' }" x-tooltip="tooltip"><i class="fa-solid fa-pencil-alt fa-fw"></i></button> --}}
+                                <button class="btn btn-info btn-sm" wire:click="detail('{{ $result->id }}')" x-data="{ tooltip: 'Detail' }" x-tooltip="tooltip"><i class="fa-solid fa-circle-info fa-fw"></i></button>
                             </td>
                         </tr>
                     @empty
@@ -166,8 +168,12 @@
             Livewire.on("openModal", () => {
                 jQuery('#modal').modal('show');
             });
+            Livewire.on("openModalDetail", () => {
+                jQuery('#modal-detail').modal('show');
+            });
             Livewire.on("closeModal", () => {
                 jQuery('#modal').modal('hide');
+                jQuery('#modal-detail').modal('hide');
             });
         });
     </script>

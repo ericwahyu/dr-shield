@@ -41,7 +41,7 @@ class ProductUpvcIndex extends Component
     public function saveData()
     {
         $this->validate([
-            'category'            => 'required',
+            'category'        => 'required',
             'name'            => 'required',
             'profile'         => 'required',
             'effective_width' => 'required',
@@ -54,12 +54,14 @@ class ProductUpvcIndex extends Component
                 Product::updateOrCreate(
                     ['id' => $this->product?->id],
                     [
-                        'category'        => $this->category,
-                        'name'            => $this->name,
-                        'profile'         => $this->profile,
-                        'effective_width' => $this->effective_width,
-                        'price'           => $this->price,
-                        'is_roof'         => 0,
+                        'category'         => $this->category,
+                        'name'             => $this->name,
+                        'profile'          => $this->profile,
+                        // 'effective_length' => $this->effective_length,
+                        'effective_width'  => $this->effective_width,
+                        'calculated'       => 'upvc',
+                        'price'            => $this->price,
+                        'price_unit'       => 'M',
                     ]
                 );
             });

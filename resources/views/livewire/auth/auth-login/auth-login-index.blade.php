@@ -22,6 +22,9 @@
 @endsection
 <div>
     {{-- Close your eyes. Count to one. That is how long forever feels. --}}
+    <div wire:loading.block wire:target="login">
+        @include('layouts.layout.loading-screen')
+    </div>
     <div class="card">
         <div class="card-body">
             <!-- Logo -->

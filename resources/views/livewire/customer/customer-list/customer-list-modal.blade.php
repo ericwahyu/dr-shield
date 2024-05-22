@@ -27,7 +27,7 @@
                         @enderror
                     </div>
                     <div class="col-6">
-                        <div class="form-label">Nama <span class="text-danger">*</span></div>
+                        <div class="form-label">Nama </div>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" wire:model="name" placeholder="Contoh : Eric Wahyu Amiruddin">
                         @error('name')
                             <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -35,19 +35,19 @@
                     </div>
                     <div class="col-6">
                         <div class="form-label">Nomor Handphone <span class="text-danger">*</span></div>
-                        <input type="number" class="form-control @error('phone') is-invalid @enderror" wire:model="phone" placeholder="Contoh : 08XXXXXXXXXX">
+                        <input type="text" class="form-control @error('phone') is-invalid @enderror" wire:model="phone" placeholder="Contoh : 08XXXXXXXXXX">
                         @error('phone')
                             <div class="invalid-feedback d-block">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="col-6">
+                    <div class="col-12">
                         <div class="form-label">Kebutuhan </div>
                         <textarea class="form-control @error('needs') is-invalid @enderror" id="needs" rows="2" wire:model="needs" placeholder="Contoh : Perlangakapan Bahan Pembangunan"></textarea>
                         @error('needs')
                             <div class="invalid-feedback d-block">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="col-6">
+                    <div class="col-12">
                         <div class="form-label">Alamat </div>
                         <textarea class="form-control @error('address') is-invalid @enderror" id="address" rows="2" wire:model="address" placeholder="Contoh : Jl. Raya Tapi Sempit"></textarea>
                         @error('address')
