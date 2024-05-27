@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->text('store')->nullable();
             $table->text('description')->nullable();
-            $table->enum('response', ['no-response', 'going-store-looking-stock', 'store', 'stock-empty-awaiting-stock', 'only-question', 'used-other-product', 'not-yet-development', 'negotiation', 'done'])->nullable();
+            $table->enum('response', ['no-response', 'going-store-looking-stock', 'store', 'stock-empty-awaiting-stock', 'only-question', 'used-other-product', 'not-yet-development', 'negotiation', 'done','whatsapp'])->nullable();
             // $table->bigInteger('total_price')->nullable();
             $table->timestamps();
             $table->softDeletes();
