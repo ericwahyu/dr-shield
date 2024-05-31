@@ -96,7 +96,7 @@
                                 @endif
                             </td>
                             <td class="text-center">{{ $result?->customer->name }}</td>
-                            <td class="text-center">0{{ $result?->customer->phone }}</td>
+                            <td class="text-center">{{ $result?->customer->phone }}</td>
                             <td class="text-center">{{ $result?->customer->needs }}</td>
                             <td class="text-center">{{ $result?->customer->address }}</td>
                             <td class="text-center">{{ $result?->customer->description }}</td>

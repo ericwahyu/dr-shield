@@ -16,7 +16,7 @@
                     </div>
                     <div class="col-6">
                         <div class="form-label">Kategori Pelanggan <span class="text-danger">*</span></div>
-                        <select class="form-select @error('category') is-invalid @enderror" id="status" wire:model.live="category" aria-label="Default select example">
+                        <select class="form-select @error('category') is-invalid @enderror" id="status" wire:model.live="category" aria-label="Default select example" disabled>
                             <option value=""selected style="display: none">-- Pilih Kategori --</option>
                             <option value="store" {{ $category == 'store' ? "selected" : "" }}>Toko</option>
                             <option value="project" {{ $category == 'project' ? "selected" : "" }}>Proyek</option>

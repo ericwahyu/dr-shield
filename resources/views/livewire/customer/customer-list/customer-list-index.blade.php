@@ -56,6 +56,7 @@
                         <th class="text-center">Alamat</th>
                         <th class="text-center">Toko</th>
                         <th class="text-center">Keterangan</th>
+                        <th class="text-center">Marketplace</th>
                         <th class="text-center">Response</th>
                         <th class="text-center" style="width: 10px;">Aksi</th>
                     </tr>
@@ -70,6 +71,8 @@
                                     <b>Toko</b>
                                 @elseif ($result?->category == 'project')
                                     <b>Proyek</b>
+                                @elseif ($result?->category == 'e-commerce')
+                                    <b>E-Commerce</b>
                                 @endif
                             </td>
                             <td class="text-center">{{ $result?->phone }}</td>
@@ -78,6 +81,17 @@
                             <td class="text-center">{{ $result?->address ? $result?->address : '-' }}</td>
                             <td class="text-center">{{ $result?->store ? $result?->store : '-' }}</td>
                             <td class="text-center">{{ $result?->description ? $result?->description : '-' }}</td>
+                            <td class="text-center">
+                                @if ($result?->marketplace == 'tokopedia')
+                                    <b>Tokopedia</b>
+                                @elseif ($result?->marketplace == 'shopee')
+                                    <b>Shopee</b>
+                                @elseif ($result?->marketplace == 'tiktok')
+                                    <b>Tiktok Shop</b>
+                                @else
+                                    -
+                                @endif
+                            </td>
                             <td class="text-center">
                                 @if ($result?->response == 'no-response')
                                     <span class="badge rounded-pill bg-dark bg-glow">Tidak Respon</span>
@@ -95,6 +109,8 @@
                                     <span class="badge rounded-pill bg-warning bg-glow">Belum Pembangunan</span>
                                 @elseif ($result?->response == 'negotiation')
                                     <span class="badge rounded-pill bg-secondary bg-glow">Negosiasi</span>
+                                @elseif ($result?->response == 'funds-already-withdrawn')
+                                    <span class="badge rounded-pill bg-secondary bg-glow">Dana Sudah Ditarik</span>
                                 @elseif ($result?->response == 'done')
                                     <span class="badge rounded-pill bg-success bg-glow">Selesai</span>
                                 @endif

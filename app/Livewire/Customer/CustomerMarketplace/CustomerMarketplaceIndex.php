@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Customer\PotentialCustomer;
+namespace App\Livewire\Customer\CustomerMarketplace;
 
 use App\Models\Customer;
 use Carbon\Carbon;
@@ -10,28 +10,28 @@ use Illuminate\Support\Facades\Log;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Str;
 use Throwable;
 
-class PotentialCustomerIndex extends Component
+class CustomerMarketplaceIndex extends Component
 {
     use LivewireAlert, WithPagination;
-    public $id_data, $date, $category, $name, $phone, $needs, $address, $store, $description, $response, $filter_date;
+    protected $paginationTheme = 'bootstrap';
+    public $id_data, $date, $category, $name, $phone, $needs, $address, $store, $description, $marketplace, $response, $filter_date;
     public $perPage = 10, $search;
 
     public function render()
     {
-        $customers = Customer::whereCategory('store')->search($this->search);
-
-        return view('livewire.customer.potential-customer.potential-customer-index', [
-            'customers' => $customers->whereIn('response', ['store', 'going-store-looking-stock', 'not-yet-development'])->paginate($this->perPage),
+        $customers = Customer::whereCategory('e-commerce')->search($this->search);
+        return view('livewire.customer.customer-marketplace.customer-marketplace-index',[
+            'customers' => $customers->orderBy('date', 'desc')->latest()->paginate($this->perPage)
         ])->extends('layouts.layout.app')->section('content');
     }
 
     public function mount()
     {
         $this->date = Carbon::now()->format('Y-m-d');
-        $this->filter_date = Carbon::now()->format('Y-m-d');
-        $this->category = 'store';
+        $this->category = 'e-commerce';
     }
 
     public function hydrate()
@@ -42,28 +42,32 @@ class PotentialCustomerIndex extends Component
 
     public function closeModal()
     {
-        $this->reset('id_data', 'date', 'name', 'phone', 'needs', 'address', 'store', 'description', 'response');
+        $this->reset('id_data', 'name', 'phone', 'needs', 'address', 'store', 'description', 'marketplace', 'response');
         $this->dispatch('closeModal');
     }
 
     public function saveData()
     {
+        $this->phone = Str::replace(['-', ' '], '', $this->phone);
+
         $phone = intval($this->phone);
         $phone = "{$phone}";
 
         if ($phone[0] == '6' && $phone[1] == '2') $phone = substr($phone, 2);
         $this->phone = intval($phone);
+        // dd($this->phone);
 
         // dd($this->id_data, $this->name, $this->phone, $this->needs, $this->address, $this->store, $this->response);
         $this->validate([
             'date'        => 'required|date',
             'category'    => 'required',
-            'name'        => 'required',
+            'name'        => 'nullable',
             'phone'       => 'required|numeric|digits_between:4,15',
             'needs'       => 'nullable',
             'address'     => 'nullable',
             'store'       => 'nullable',
             'description' => 'nullable',
+            'marketplace' => 'nullable',
             'response'    => 'required',
         ]);
 
@@ -81,6 +85,7 @@ class PotentialCustomerIndex extends Component
                         'address'     => $this->address,
                         'store'       => $this->store,
                         'description' => $this->description,
+                        'marketplace' => $this->marketplace,
                         'response'    => $this->response,
                     ]
                 );
@@ -100,7 +105,7 @@ class PotentialCustomerIndex extends Component
         $this->closeModal();
 
         return $this->alert('success', 'Berhasil', [
-            'text' => 'Data Calon Pelanggan Telah Disimpan !'
+            'text' => 'Data Pelanggan E-Commerce Telah Disimpan !'
         ]);
     }
 
@@ -117,51 +122,10 @@ class PotentialCustomerIndex extends Component
         $this->address     = $get_customer?->address;
         $this->store       = $get_customer?->store;
         $this->description = $get_customer?->description;
+        $this->marketplace = $get_customer?->marketplace;
         $this->response    = $get_customer?->response;
 
         $this->dispatch('openModal');
     }
 
-    public function deleteConfirm($id)
-    {
-        $this->confirm('Konfirmasi', [
-            'inputAttributes'    => ['id' => $id],
-            'onConfirmed'        => 'delete',
-            'text'               => 'Data yang dihapus tidak dapat di kembalikan lagi',
-            'reverseButtons'     => 'true',
-            'confirmButtonColor' => '#24B464',
-        ]);
-    }
-
-    public function getListeners()
-    {
-        return ['delete'];
-    }
-
-    public function delete($data)
-    {
-        try {
-            //code...
-            DB::transaction(function () use ($data) {
-                $result = Customer::find($data['inputAttributes']['id']);
-                $result?->delete();
-            });
-
-            DB::commit();
-        } catch (Throwable | Exception $e) {
-            DB::rollBack();
-
-            Log::error($e->getMessage());
-
-            return $this->alert('error', 'Maaf', [
-                'text' => 'Terjadi Kesalahan Saat Menghapus Data!'
-            ]);
-        }
-
-        $this->closeModal();
-
-        return $this->alert('success', 'Berhasil', [
-            'text' => 'Data Calon Pelanggan Telah Dihapus !'
-        ]);
-    }
 }

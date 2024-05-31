@@ -48,6 +48,12 @@
                 <div>Proyek</div>
             </a>
         </li>
+        <li class="menu-item {{ Request::is('*pelanggan/e-commerce*') ? 'active' : '' }}">
+            <a href="{{ route('customer.e-commerce') }}" class="menu-link">
+                <i class="fa-regular fa-home-alt fa-fw me-2"></i>
+                <div>E-Commerce</div>
+            </a>
+        </li>
         <li class="menu-item {{ Request::is('*pelanggan/persentase*') ? 'active' : '' }}">
             <a href="{{ route('customer.percentage') }}" class="menu-link">
                 <i class="fa-regular fa-home-alt fa-fw me-2"></i>

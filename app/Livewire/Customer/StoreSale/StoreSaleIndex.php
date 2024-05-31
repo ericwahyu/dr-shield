@@ -71,7 +71,7 @@ class StoreSaleIndex extends Component
         $this->date        = $get_customer?->date->format('Y-m-d');
         $this->category    = $get_customer?->category;
         $this->name        = $get_customer?->name;
-        $this->phone       = '0' . $get_customer?->phone;
+        $this->phone       = $get_customer?->phone;
         $this->needs       = $get_customer?->needs;
         $this->address     = $get_customer?->address;
         $this->store       = $get_customer?->store;
@@ -110,7 +110,7 @@ class StoreSaleIndex extends Component
                     'date'        => $this->date,
                     'category'    => $this->category,
                     'name'        => Str::title($this->name),
-                    'phone'       => $this->phone,
+                    'phone'       => '0'.$this->phone,
                     'needs'       => $this->needs,
                     'address'     => $this->address,
                     'store'       => $this->store,

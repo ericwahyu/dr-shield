@@ -17,7 +17,7 @@ class CustomerListIndex extends Component
 {
     use LivewireAlert, WithPagination;
     protected $paginationTheme = 'bootstrap';
-    public $id_data, $date, $category, $name, $phone, $needs, $address, $store, $description, $response, $filter_date;
+    public $id_data, $date, $category, $name, $phone, $needs, $address, $store, $description, $marketplace, $response, $filter_date;
     public $perPage = 10, $search;
 
     public function render()
@@ -42,7 +42,7 @@ class CustomerListIndex extends Component
 
     public function closeModal()
     {
-        $this->reset('id_data', 'name', 'phone', 'needs', 'address', 'store', 'description', 'response');
+        $this->reset('id_data', 'category', 'name', 'phone', 'needs', 'address', 'store', 'description', 'marketplace', 'response');
         $this->dispatch('closeModal');
     }
 
@@ -54,11 +54,12 @@ class CustomerListIndex extends Component
         $this->date        = $get_customer?->date->format('Y-m-d');
         $this->category    = $get_customer?->category;
         $this->name        = $get_customer?->name;
-        $this->phone       = '0' . $get_customer?->phone;
+        $this->phone       = $get_customer?->phone;
         $this->needs       = $get_customer?->needs;
         $this->address     = $get_customer?->address;
         $this->store       = $get_customer?->store;
         $this->description = $get_customer?->description;
+        $this->marketplace = $get_customer?->marketplace;
         $this->response    = $get_customer?->response;
 
         $this->dispatch('openModal');
@@ -85,6 +86,7 @@ class CustomerListIndex extends Component
             'address'     => 'nullable',
             'store'       => 'nullable',
             'description' => 'nullable',
+            'marketplace' => 'nullable',
             'response'    => 'required',
         ]);
 
@@ -102,6 +104,7 @@ class CustomerListIndex extends Component
                         'address'     => $this->address,
                         'store'       => $this->store,
                         'description' => $this->description,
+                        'marketplace' => $this->marketplace,
                         'response'    => $this->response,
                     ]
                 );

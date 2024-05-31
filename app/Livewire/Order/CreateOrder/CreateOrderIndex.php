@@ -146,7 +146,7 @@ class CreateOrderIndex extends Component
         }
 
         return view('livewire.order.create-order.create-order-index', [
-            'customers' => Customer::whereResponse('done')->get(),
+            'customers' => Customer::whereResponse('done')->latest()->get(),
             'products'  => Product::all(),
         ])->extends('layouts.layout.app')->section('content');
     }

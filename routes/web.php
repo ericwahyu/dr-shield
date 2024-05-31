@@ -6,6 +6,7 @@ use App\Livewire\Customer\CustomerList\CustomerListIndex as Customer_CustomerLis
 use App\Livewire\Customer\PotentialCustomer\PotentialCustomerIndex as Customer_PotentialCustomer_PotentialCustomerIndex;
 use App\Livewire\Customer\StoreSale\StoreSaleIndex as Customer_StoreSale_StoreSaleIndex;
 use App\Livewire\Customer\CustomerProject\CustomerProjectIndex as Customer_CustomerProject_CustomerProjectIndex;
+use App\Livewire\Customer\CustomerMarketplace\CustomerMarketplaceIndex as Customer_CustomerMarketplace_CustomerMarketplaceIndex;
 
 use App\Livewire\Calculation\ProductAccessories\ProductAccessoriesIndex as Calculation_ProductAccessories_ProductAccessoriesIndex;
 
@@ -65,6 +66,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/calon', Customer_PotentialCustomer_PotentialCustomerIndex::class)->name('customer.potential');
         Route::get('/penjualan-toko', Customer_StoreSale_StoreSaleIndex::class)->name('customer.store.sale');
         Route::get('/proyek', Customer_CustomerProject_CustomerProjectIndex::class)->name('customer.project');
+        Route::get('/e-commerce', Customer_CustomerMarketplace_CustomerMarketplaceIndex::class)->name('customer.e-commerce');
     });
 
     Route::prefix('/pesanan')->group(function () {

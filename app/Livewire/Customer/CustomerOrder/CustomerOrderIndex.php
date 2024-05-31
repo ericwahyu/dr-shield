@@ -52,7 +52,7 @@ class CustomerOrderIndex extends Component
 
         $this->id_data     = $get_customer->id;
         $this->name        = $get_customer->name;
-        $this->phone       = '0' . $get_customer->phone;
+        $this->phone       = $get_customer->phone;
         $this->needs       = $get_customer->needs;
         $this->address     = $get_customer->address;
         $this->store       = $get_customer->store;
@@ -87,7 +87,7 @@ class CustomerOrderIndex extends Component
                 ['id' => $this->id_data],
                 [
                     'name'        => Str::title($this->name),
-                    'phone'       => $this->phone,
+                    'phone'       => '0'.$this->phone,
                     'needs'       => $this->needs,
                     'address'     => $this->address,
                     'store'       => $this->store,

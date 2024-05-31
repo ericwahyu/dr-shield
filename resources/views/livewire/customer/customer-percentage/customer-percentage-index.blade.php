@@ -59,7 +59,7 @@
                         @endif
                     </div>
                     <div class="row">
-                        <div class="col-md mb-md-0 mb-2">
+                        <div class="col-md-2 mb-md-0 mb-2">
                             <div class="form-check custom-option custom-option-basic">
                                 <label class="form-check-label custom-option-content" for="customRadioTemp1">
                                     <input name="customRadioTemp" class="form-check-input" type="radio" wire:model.live="category_percentage" value="all" id="customRadioTemp1" {{ $category_percentage == 'all' ? "checked" : "" }}>
@@ -73,7 +73,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="col-md mb-md-0 mb-2">
+                        <div class="col-md-2 mb-md-0 mb-2">
                             <div class="form-check custom-option custom-option-basic">
                                 <label class="form-check-label custom-option-content" for="customRadioTemp2">
                                     <input name="customRadioTemp" class="form-check-input" type="radio" wire:model.live="category_percentage" value="potential_customer" id="customRadioTemp2" {{ $category_percentage == 'potential_customer' ? "checked" : "" }}>
@@ -87,7 +87,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="col-md mb-md-0 mb-2">
+                        <div class="col-md-2 mb-md-0 mb-2">
                             <div class="form-check custom-option custom-option-basic">
                                 <label class="form-check-label custom-option-content" for="customRadioTemp3">
                                     <input name="customRadioTemp" class="form-check-input" type="radio" wire:model.live="category_percentage" value="store_sale_done" id="customRadioTemp3" {{ $category_percentage == 'store_sale_done' ? "checked" : "" }}>
@@ -101,7 +101,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="col-md mb-md-0 mb-2">
+                        <div class="col-md-2 mb-md-0 mb-2">
                             <div class="form-check custom-option custom-option-basic">
                                 <label class="form-check-label custom-option-content" for="customRadioTemp4">
                                     <input name="customRadioTemp" class="form-check-input" type="radio" wire:model.live="category_percentage" value="other-product" id="customRadioTemp4" {{ $category_percentage == 'other-product' ? "checked" : "" }}>
@@ -115,7 +115,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="col-md mb-md-0 mb-2">
+                        <div class="col-md-2 mb-md-0 mb-2">
                             <div class="form-check custom-option custom-option-basic">
                                 <label class="form-check-label custom-option-content" for="customRadioTemp5">
                                     <input name="customRadioTemp" class="form-check-input" type="radio" wire:model.live="category_percentage" value="store" id="customRadioTemp5" {{ $category_percentage == 'store' ? "checked" : "" }}>
@@ -129,16 +129,30 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="col-md mb-md-0 mb-2">
+                        <div class="col-md-2 mb-md-0 mb-2">
                             <div class="form-check custom-option custom-option-basic">
                                 <label class="form-check-label custom-option-content" for="customRadioTemp6">
                                     <input name="customRadioTemp" class="form-check-input" type="radio" wire:model.live="category_percentage" value="no-response" id="customRadioTemp6" {{ $category_percentage == 'no-response' ? "checked" : "" }}>
                                     <span class="custom-option-header">
-                                        <span class="h6 mb-0">TIdak Respon</span>
+                                        <span class="h6 mb-0">Tidak Respon</span>
                                         <span class="text-muted">{{ $this->percentageNoResponse()[0] }}%</span>
                                     </span>
                                     <span class="custom-option-body">
                                         <small>{{ $this->percentageNoResponse()[1] }} Pelanggan</small>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2 mb-md-0 mb-2">
+                            <div class="form-check custom-option custom-option-basic">
+                                <label class="form-check-label custom-option-content" for="customRadioTemp7">
+                                    <input name="customRadioTemp" class="form-check-input" type="radio" wire:model.live="category_percentage" value="no-response" id="customRadioTemp7" {{ $category_percentage == 'no-response' ? "checked" : "" }}>
+                                    <span class="custom-option-header">
+                                        <span class="h6 mb-0">E-Commerce</span>
+                                        {{-- <span class="text-muted">{{ $this->percentageNoResponse()[0] }}%</span> --}}
+                                    </span>
+                                    <span class="custom-option-body">
+                                        {{-- <small>{{ $this->percentageNoResponse()[1] }} Pelanggan</small> --}}
                                     </span>
                                 </label>
                             </div>

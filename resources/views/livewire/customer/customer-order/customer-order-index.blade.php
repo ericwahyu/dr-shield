@@ -87,7 +87,7 @@
                         <tr>
                             <td class="text-center">{{ $result->created_at->isoFormat('dddd, D MMMM Y') }}</td>
                             <td class="text-center">{{ $customers->currentPage() * $perPage - $perPage + $loop->iteration }}</td>
-                            <td class="text-center">0{{ $result->phone }}</td>
+                            <td class="text-center">{{ $result->phone }}</td>
                             <td class="text-center">{{ $result->name }}</td>
                             <td class="text-center">{{ $result->needs }}</td>
                             <td class="text-center">{{ $result->address }}</td>

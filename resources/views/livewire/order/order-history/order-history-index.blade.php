@@ -65,14 +65,16 @@
                             <td class="text-center">{{ $result?->order_date?->isoFormat('D MMMM Y') }}</td>
                             <td class="text-center">{{ $orders->currentPage() * $perPage - $perPage + $loop->iteration }}</td>
                             <td class="text-center">
-                                @if ($result?->customer?->category == 'store')
+                                @if ($result?->category == 'store')
                                     <b>Toko</b>
-                                @elseif ($result?->customer?->category == 'project')
+                                @elseif ($result?->category == 'project')
                                     <b>Proyek</b>
+                                @elseif ($result?->category == 'e-commerce')
+                                    <b>E-Commerce</b>
                                 @endif
                             </td>
                             <td class="text-center">{{ $result?->customer->name }}</td>
-                            <td class="text-center">0{{ $result?->customer->phone }}</td>
+                            <td class="text-center">{{ $result?->customer->phone }}</td>
                             <td class="text-center">{{ $result?->customer->address }}</td>
                             <td class="text-center">{{ $result?->customer->needs }}</td>
                             {{-- <td class="text-center">{{ $result?->customer->description }}</td> --}}

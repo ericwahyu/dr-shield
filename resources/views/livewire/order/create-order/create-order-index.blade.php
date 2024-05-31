@@ -23,12 +23,17 @@
                                     <option value=""selected style="display: none">-- Pilih Pelanggan --</option>
                                     <optgroup label="Toko">
                                         @foreach ($customers?->where('category', 'store') as $store_customer)
-                                            <option value="{{ $store_customer?->id }}">{{ $store_customer?->name }} &ensp; - &ensp; 0{{ $store_customer?->phone }} &ensp; - &ensp; {{ $store_customer?->address }}</option>
+                                            <option value="{{ $store_customer?->id }}">{{ $store_customer?->name }} &ensp; - &ensp; {{ $store_customer?->phone }} &ensp; - &ensp; {{ $store_customer?->address }}</option>
                                         @endforeach
                                     </optgroup>
                                     <optgroup label="Proyek">
                                         @foreach ($customers?->where('category', 'project') as $store_customer)
-                                            <option value="{{ $store_customer?->id }}">{{ $store_customer?->name }} &ensp; - &ensp; 0{{ $store_customer?->phone }} &ensp; - &ensp; {{ $store_customer?->address }}</option>
+                                            <option value="{{ $store_customer?->id }}">{{ $store_customer?->name }} &ensp; - &ensp; {{ $store_customer?->phone }} &ensp; - &ensp; {{ $store_customer?->address }}</option>
+                                        @endforeach
+                                    </optgroup>
+                                    <optgroup label="E-Commerce">
+                                        @foreach ($customers?->where('category', 'e-commerce') as $store_customer)
+                                            <option value="{{ $store_customer?->id }}">{{ $store_customer?->name }} &ensp; - &ensp; {{ $store_customer?->phone }} &ensp; - &ensp; {{ $store_customer?->address }}</option>
                                         @endforeach
                                     </optgroup>
                                 </select>

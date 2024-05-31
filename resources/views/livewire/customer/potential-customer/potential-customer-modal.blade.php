@@ -35,7 +35,7 @@
                     </div>
                     <div class="col-6">
                         <div class="form-label">Nomor Handphone <span class="text-danger">*</span></div>
-                        <input type="number" class="form-control @error('phone') is-invalid @enderror" wire:model="phone" placeholder="Contoh : 08XXXXXXXXXX">
+                        <input type="number" class="form-control @error('phone') is-invalid @enderror" wire:model="phone" placeholder="Contoh : 08123456789">
                         @error('phone')
                             <div class="invalid-feedback d-block">{{ $message }}</div>
                         @enderror

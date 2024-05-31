@@ -1,10 +1,10 @@
-@section('title', 'Data Calon Pelanggan')
+@section('title', 'Data Pelanggan E-Commerce')
 <div>
-    {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
-    @include('livewire.customer.potential-customer.potential-customer-modal')
+    {{-- To attain knowledge, add things every day; To attain wisdom, subtract things every day. --}}
+    @include('livewire.customer.customer-marketplace.customer-marketplace-modal')
     <div class="d-flex align-items-center">
         <div>
-            <h3 class="fw-semibold mb-0">Calon Pelanggan</h3>
+            <h3 class="fw-semibold mb-0">Daftar Pelanggan</h3>
         </div>
         <div class="ms-auto">
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">Tambah <i class="fa-solid fa-circle-plus fa-fw ms-2"></i></button>
@@ -56,6 +56,7 @@
                         <th class="text-center">Alamat</th>
                         <th class="text-center">Toko</th>
                         <th class="text-center">Keterangan</th>
+                        <th class="text-center">Marketplace</th>
                         <th class="text-center">Response</th>
                         <th class="text-center" style="width: 10px;">Aksi</th>
                     </tr>
@@ -63,21 +64,34 @@
                 <tbody>
                     @forelse ($customers as $result)
                         <tr>
-                            <td class="text-center">{{ $result?->date->isoFormat('D MMMM Y') }}</td>
+                            <td class="text-center">{{ $result?->date->isoFormat('DD MMMM Y') }}</td>
                             <td class="text-center">{{ $customers?->currentPage() * $perPage - $perPage + $loop->iteration }}</td>
                             <td class="text-center">
                                 @if ($result?->category == 'store')
                                     <b>Toko</b>
                                 @elseif ($result?->category == 'project')
                                     <b>Proyek</b>
+                                @elseif ($result?->category == 'e-commerce')
+                                    <b>E-Commerce</b>
                                 @endif
                             </td>
                             <td class="text-center">{{ $result?->phone }}</td>
-                            <td class="text-center">{{ $result?->name }}</td>
-                            <td class="text-center">{{ $result?->needs }}</td>
-                            <td class="text-center">{{ $result?->address }}</td>
-                            <td class="text-center">{{ $result?->store }}</td>
-                            <td class="text-center">{{ $result?->description }}</td>
+                            <td class="text-center">{{ $result?->name ? $result?->name : '-' }}</td>
+                            <td class="text-center">{{ $result?->needs ? $result?->needs : '-' }}</td>
+                            <td class="text-center">{{ $result?->address ? $result?->address : '-' }}</td>
+                            <td class="text-center">{{ $result?->store ? $result?->store : '-' }}</td>
+                            <td class="text-center">{{ $result?->description ? $result?->description : '-' }}</td>
+                            <td class="text-center">
+                                @if ($result?->marketplace == 'tokopedia')
+                                    <b>Tokopedia</b>
+                                @elseif ($result?->marketplace == 'shopee')
+                                    <b>Shopee</b>
+                                @elseif ($result?->marketplace == 'tiktok')
+                                    <b>Tiktok Shop</b>
+                                @else
+                                    -
+                                @endif
+                            </td>
                             <td class="text-center">
                                 @if ($result?->response == 'no-response')
                                     <span class="badge rounded-pill bg-dark bg-glow">Tidak Respon</span>
@@ -95,6 +109,8 @@
                                     <span class="badge rounded-pill bg-warning bg-glow">Belum Pembangunan</span>
                                 @elseif ($result?->response == 'negotiation')
                                     <span class="badge rounded-pill bg-secondary bg-glow">Negosiasi</span>
+                                @elseif ($result?->response == 'funds-already-withdrawn')
+                                    <span class="badge rounded-pill bg-secondary bg-glow">Dana Sudah Ditarik</span>
                                 @elseif ($result?->response == 'done')
                                     <span class="badge rounded-pill bg-success bg-glow">Selesai</span>
                                 @endif
@@ -113,9 +129,9 @@
             </table>
         </div>
         <div class="card-body">
-            <div class="row d-flex align-items-center g-3">
-                <div class="col-lg-6 col-12">Menampilkan {{ $customers?->firstItem() }} sampai {{ $customers?->lastItem() }} dari {{ $customers?->total() }} hasil</div>
-                <div class="d-flex justify-content-end col-lg-6 col-12">{{ $customers?->links('vendor.livewire.simple-tailwind') }}</div>
+            <div class="row align-items-center g-3">
+                <div class="col-lg-6 col-12">Menampilkan {{ $customers->firstItem() }} sampai {{ $customers->lastItem() }} dari {{ $customers->total() }} hasil</div>
+                <div class="col-lg-6 col-12 text-align-end">{{ $customers->onEachSide(1)->links('vendor.livewire.custom-paginate') }}</div>
             </div>
         </div>
     </div>

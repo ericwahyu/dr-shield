@@ -161,10 +161,6 @@ class CustomerPercentageIndex extends Component
         return [number_format($percentage_negitiation, 2, ','), $count_customer_negitiation];
     }
 
-
-
-
-
     // No Response
     public function percentageDone()
     {
