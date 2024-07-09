@@ -3,7 +3,7 @@
     {{-- Care about people's approval and you will be their prisoner. --}}
     <div class="d-flex align-items-center">
         <div>
-            <h3 class="fw-semibold mb-0">Buat Pesanan</h3>
+            <h3 class="mb-0 fw-semibold">Buat Pesanan</h3>
         </div>
         {{-- <div class="ms-auto">
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">Tambah <i class="fa-solid fa-circle-plus fa-fw ms-2"></i></button>
@@ -12,37 +12,11 @@
     <hr class="my-3">
     <div class="row">
         <div class="col-12 col-lg-4">
-            <div class="card mb-4">
+            <div class="mb-4 card">
                 {{-- <h5 class="card-header"></h5> --}}
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-12 col-lg-7">
-                            <div class="mb-3">
-                                <label for="customer_id" class="form-label">Pelanggan <span class="text-danger">*</span></label>
-                                <select class="form-select @error('customer_id') is-invalid @enderror" id="customer_id" wire:model="customer_id" aria-label="Default select example">
-                                    <option value=""selected style="display: none">-- Pilih Pelanggan --</option>
-                                    <optgroup label="Toko">
-                                        @foreach ($customers?->where('category', 'store') as $store_customer)
-                                            <option value="{{ $store_customer?->id }}">{{ $store_customer?->name }} &ensp; - &ensp; {{ $store_customer?->phone }} &ensp; - &ensp; {{ $store_customer?->address }}</option>
-                                        @endforeach
-                                    </optgroup>
-                                    <optgroup label="Proyek">
-                                        @foreach ($customers?->where('category', 'project') as $store_customer)
-                                            <option value="{{ $store_customer?->id }}">{{ $store_customer?->name }} &ensp; - &ensp; {{ $store_customer?->phone }} &ensp; - &ensp; {{ $store_customer?->address }}</option>
-                                        @endforeach
-                                    </optgroup>
-                                    <optgroup label="E-Commerce">
-                                        @foreach ($customers?->where('category', 'e-commerce') as $store_customer)
-                                            <option value="{{ $store_customer?->id }}">{{ $store_customer?->name }} &ensp; - &ensp; {{ $store_customer?->phone }} &ensp; - &ensp; {{ $store_customer?->address }}</option>
-                                        @endforeach
-                                    </optgroup>
-                                </select>
-                                @error('customer_id')
-                                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-5">
+                        <div class="col-12 col-lg-12">
                             <div class="mb-3">
                                 <label for="order_date" class="form-label">Tanggal Pesanan <span class="text-danger">*</span></label>
                                 <input type="date" class="form-control @error('order_date') is-invalid @enderror" id="order_date" wire:model="order_date">
@@ -51,9 +25,41 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="col-12 col-lg-12">
+                            <div class="mb-3">
+                                <label for="customer_id" class="form-label">Pelanggan <span class="text-danger">*</span></label>
+                                <div x-data="{ openCustomer: @entangle('open_customer') }" class="year-select-container" x-on:click.away="openCustomer = false; $wire.closeCustomer()">
+                                    <div class="input-group input-group-merge">
+                                        <input type="text" class="form-control @error('customer_id') is-invalid @enderror" x-ref="customerInput" x-on:click="openCustomer=true; $wire.openCustomer()" wire:model.live="customer" placeholder="Cari Pelanggan...">
+                                        @if ($selected_customer)
+                                            <div class="input-group-text" wire:click="clearSelectedCustomer">
+                                                <span class="fa-solid fa-times"></span>
+                                            </div>
+                                        @endif
+                                        <div class="input-group-text" x-on:click="openCustomer=true; $wire.openCustomer(); $refs.customerInput.focus()">
+                                            <span class="fa-solid" :class="openCustomer ? 'fa-chevron-up' : 'fa-chevron-down'"></span>
+                                        </div>
+                                    </div>
+                                    <div x-show="openCustomer" class="box-child" x-transition>
+                                        <div class="box-child-2" style="max-height: 200px; overflow-y: auto">
+                                            <ul>
+                                                @forelse ($getCustomers as $customer)
+                                                    <li wire:key='{{ $customer?->id }}' wire:click="selectCustomer('{{ $customer?->id }}')" x-on:click="openCustomer=false; $wire.closeCustomer()" class="click-hover {{ $selected_customer == $customer ? 'selected-year' : '' }}">{{ $customer?->name }} &ensp; - &ensp; {{ $customer?->phone }} &ensp; - &ensp; {{ $customer?->address }}</li>
+                                                @empty
+                                                    <li>No users found.</li>
+                                                @endforelse
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                @error('customer_id')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="mb-3">
                             <label for="product_id" class="form-label">Produk <span class="text-danger">*</span></label>
-                            <select class="form-select @error('product_id') is-invalid @enderror" id="product_id" wire:model.live="product_id" aria-label="Default select example">
+                            <select class="form-select @error('product_id') is-invalid @enderror" id="product_id" wire:model.defer="product_id" aria-label="Default select example">
                                 <option value=""selected style="display: none">-- Pilih Produk --</option>
                                 <optgroup label="Genteng">
                                     @foreach ($products?->where('calculated', 'proof') as $proof_product)
@@ -81,7 +87,7 @@
                                 <div class="col-md-5" wire:key="{{ rand() }}">
                                     <div class="mb-3">
                                         <label for="length" class="form-label">Ukuran Panjang <span class="text-danger">*</span></label>
-                                        <input type="number" class="form-control @error('length') is-invalid @enderror" id="length" wire:model.live.debounce.2000ms="length">
+                                        <input type="number" class="form-control @error('length') is-invalid @enderror" id="length" wire:model.defer="length">
                                         <div id="defaultFormControlHelp" class="form-text">Masukkan Satuan M (meter)</div>
                                         @error('length')
                                             <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -93,7 +99,7 @@
                                 <div class="col-md-5" wire:key="{{ rand() }}">
                                     <div class="mb-3">
                                         <label for="width" class="form-label">Ukuran Lebar <span class="text-danger">*</span></label>
-                                        <input type="number" class="form-control @error('width') is-invalid @enderror" id="width" wire:model.live.debounce.2000ms="width">
+                                        <input type="number" class="form-control @error('width') is-invalid @enderror" id="width" wire:model.defer="width">
                                         <div id="defaultFormControlHelp" class="form-text">Masukkan Satuan M (meter)</div>
                                         @error('width')
                                             <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -105,7 +111,7 @@
                                 <div class="col-md-5">
                                     <div class="mb-3">
                                         <label for="pieces" class="form-label">jumlah Item <span class="text-danger">*</span></label>
-                                        <input type="number" class="form-control @error('pieces') is-invalid @enderror" id="pieces" wire:model.live.debounce.2000ms="pieces">
+                                        <input type="number" class="form-control @error('pieces') is-invalid @enderror" id="pieces" wire:model.defer="pieces">
                                         <div id="defaultFormControlHelp" class="form-text">Masukkan Satuan Pack</div>
                                         @error('pieces')
                                             <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -117,7 +123,7 @@
                                 <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="width" class="form-label">&ensp;</label>
-                                        <button type="button" class="btn btn-success btn-sm p-3"wire:click="addDataOrder()">Tambah</button>
+                                        <button type="button" class="p-3 btn btn-success btn-sm"wire:click="addDataOrder()">Tambah</button>
                                     </div>
                                 </div>
                             @endif
@@ -201,12 +207,12 @@
             </div>
         </div>
         <div class="col-12 col-lg-8">
-            <div class="card mb-4">
+            <div class="mb-4 card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title m-0 me-2">Data Pesanan</h5>
+                    <h5 class="m-0 card-title me-2">Data Pesanan</h5>
                     @if (count($data_orders) > 0)
                         <div class="ms-auto">
-                            <button class="btn btn-success p-3" wire:click="saveDataOrder()">Simpan</button>
+                            <button class="p-3 btn btn-success" wire:click="saveDataOrder()">Simpan</button>
                         </div>
                     @endif
                   </div>
@@ -247,7 +253,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="7" class="fw-bold text-center">Belum Ada Data</td>
+                                                <td colspan="7" class="text-center fw-bold">Belum Ada Data</td>
                                             </tr>
                                         @endforelse
                                     </tbody>

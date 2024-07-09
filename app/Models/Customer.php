@@ -21,7 +21,7 @@ class Customer extends Model
 
     public function scopeSearch(Builder $query, $term): void
     {
-        $term = "%$term%";
+        $term = '%'. $term .'%';
 
         $query->where(function ($query) use ($term) {
             $query->whereAny(['name', 'needs', 'phone', 'address', 'store', 'description'], 'LIKE', $term);

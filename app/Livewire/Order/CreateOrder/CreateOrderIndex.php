@@ -29,7 +29,7 @@ class CreateOrderIndex extends Component
 
     public $data_orders = array(), $final_price;
 
-    public function render()
+    public function updated()
     {
         $this->get_product = Product::find($this->product_id);
 
@@ -144,15 +144,175 @@ class CreateOrderIndex extends Component
             //1
             $this->grand_total = $this->pieces * $this->get_product?->price;
         }
+    }
+
+    public function render()
+    {
+        // $this->get_product = Product::find($this->product_id);
+
+        // if ($this->get_product?->calculated == 'proof' && $this->length && $this->width) {
+        //     //1
+        //     $this->length_mm      = $this->length * 1000;
+        //     $this->width_mm       = $this->width * 1000;
+        //     $this->length_product = $this->get_product?->effective_length;
+        //     $this->width_product  = $this->get_product?->effective_width;
+
+        //     //2
+        //     $this->length_value_1 = number_format($this->length_mm / $this->length_product, 2, ',', '.');
+        //     $this->width_value_1  = number_format($this->width_mm / $this->width_product, 2, ',', '.');
+
+        //     //3
+        //     if (number_format($this->length_mm / $this->length_product, 2) > number_format($this->length_mm / $this->length_product, 0)) {
+        //         $this->length_roundup = number_format($this->length_mm / $this->length_product, 0) + 1;
+        //     } else {
+        //         $this->length_roundup = number_format($this->length_mm / $this->length_product, 0);
+        //     }
+
+        //     if (number_format($this->width_mm / $this->width_product, 2) > number_format($this->width_mm / $this->width_product, 0)) {
+        //         $this->width_roundup = number_format($this->width_mm / $this->width_product, 0) + 1;
+        //     } else {
+        //         $this->width_roundup = number_format($this->width_mm / $this->width_product, 0);
+        //     }
+
+        //     //4
+        //     $this->count_item = $this->length_roundup * $this->width_roundup;
+
+        //     //5
+        //     $this->grand_total = $this->count_item * $this->get_product?->price;
+        // } elseif ($this->get_product?->calculated == 'upvc' && $this->length && $this->width) {
+        //     if ($this->length > 12) {
+        //         //1
+        //         $this->rate = $this->length / 12;
+        //         if (number_format($this->length / 12, 2) > number_format($this->length / 12, 0)) {
+        //             $this->rate_roundup = number_format($this->length / 12, 0) + 1;
+        //         } else {
+        //             $this->rate_roundup = number_format($this->length / 12, 0);
+        //         }
+
+        //         $this->width_mm       = $this->width * 1000;
+        //         $this->effective_width_product = $this->get_product?->effective_width;
+
+        //         //2
+        //         $this->length_value_1 = number_format($this->length / $this->rate_roundup, 2, ',', '.');
+        //         $this->width_value_1 = number_format($this->width_mm / $this->effective_width_product, 2, ',', '.');
+
+        //         //3
+        //         if (number_format($this->length / $this->rate_roundup, 2) > number_format($this->length / $this->rate_roundup, 0)) {
+        //             $this->length_roundup = number_format($this->length / $this->rate_roundup, 0) + 1;
+        //         } else {
+        //             $this->length_roundup = number_format($this->length / $this->rate_roundup, 0);
+        //         }
+
+        //         if (number_format($this->width_mm / $this->effective_width_product, 2) > number_format($this->width_mm / $this->effective_width_product, 0)) {
+        //             $this->width_roundup = number_format($this->width_mm / $this->effective_width_product, 0) + 1;
+        //         } else {
+        //             $this->width_roundup = number_format($this->width_mm / $this->effective_width_product, 0);
+        //         }
+
+        //         //4
+        //         $this->width_roundupx2 = $this->width_roundup * $this->rate_roundup;
+
+        //         //5
+        //         $this->count_item = $this->length_roundup * $this->width_roundupx2;
+
+        //         //6
+        //         $this->grand_total = $this->count_item * $this->get_product?->price;
+        //     } else {
+        //         //1
+        //         $this->width_mm       = $this->width * 1000;
+        //         $this->effective_width_product = $this->get_product?->effective_width;
+
+        //         //2
+        //         $this->width_value_2 = number_format($this->width_mm / $this->effective_width_product, 2, ',', '.');
+
+        //         //3
+        //         if (number_format($this->width_mm / $this->effective_width_product, 2) > number_format($this->width_mm / $this->effective_width_product, 0)) {
+        //             $this->width_roundup = number_format($this->width_mm / $this->effective_width_product, 0) + 1;
+        //         } else {
+        //             $this->width_roundup = number_format($this->width_mm / $this->effective_width_product, 0);
+        //         }
+
+        //         //4
+        //         $this->count_item = $this->length * $this->width_roundup;
+
+        //         //5
+        //         $this->grand_total = $this->count_item * $this->get_product?->price;
+        //     }
+        // } elseif ($this->get_product?->calculated == 'accessories' && $this->width){
+        //     //1
+        //     // $this->length_mm      = $this->length * 1000;
+        //     $this->width_mm       = $this->width * 1000;
+        //     $this->width_product  = $this->get_product?->effective_width;
+
+        //     //2
+        //     $this->count_item = $this->width_mm / $this->width_product;
+
+        //     //2
+        //     if(number_format($this->width_mm / $this->width_product, 2) > number_format($this->width_mm / $this->width_product, 0)){
+        //         $this->count_item_roundup = number_format($this->width_mm / $this->width_product, 0) + 1;
+        //     }else{
+        //         $this->count_item_roundup = number_format($this->width_mm / $this->width_product, 0);
+        //     }
+
+        //     //3
+        //     $this->grand_total = $this->count_item_roundup * $this->get_product?->price;
+
+        // } elseif ($this->get_product?->calculated == 'pieces' && $this->pieces){
+        //     //1
+        //     $this->grand_total = $this->pieces * $this->get_product?->price;
+        // }
 
         return view('livewire.order.create-order.create-order-index', [
-            'customers' => Customer::whereResponse('done')->latest()->get(),
+            'customers' => Customer::latest()->get(),
             'products'  => Product::all(),
         ])->extends('layouts.layout.app')->section('content');
     }
 
+    public $search;
+    public $customer;
+    public $getCustomers = [];
+    public $open_customer = false;
+    public $selected_customer = null;
+
+    public function updatedCustomer()
+    {
+        $this->getCustomers = Customer::search(trim($this->customer))->latest()->get();
+    }
+
+    public function selectCustomer($customer)
+    {
+        $get_customer = Customer::find($customer);
+        $this->customer = $get_customer?->id;
+        $this->customer_id = $get_customer?->id;
+        $this->selected_customer = $get_customer?->name .' - '. $get_customer?->phone .' - '. $get_customer?->address;
+        $this->getCustomers = Customer::search(trim($this->customer))->latest()->get();
+        // dd($this->customer);
+    }
+
+    public function openCustomer()
+    {
+        $this->customer = '';
+        $this->open_customer = true;
+        $this->getCustomers = Customer::search(trim($this->customer))->latest()->get();
+        $this->customer_id = null;
+    }
+
+    public function closeCustomer()
+    {
+        $this->open_customer = false;
+        $this->customer = $this->selected_customer;
+    }
+
+    public function clearSelectedCustomer()
+    {
+        $this->selected_customer = null;
+        $this->customer = '';
+        $this->customer_id = null;
+    }
+
     public function mount()
     {
+        // $this->results = Customer::get();
         $this->order_date = Carbon::now()->format('Y-m-d');
     }
 
