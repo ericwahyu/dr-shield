@@ -12,13 +12,12 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Throwable;
 use Illuminate\Support\Str;
-
 class CustomerListIndex extends Component
 {
     use LivewireAlert, WithPagination;
     protected $paginationTheme = 'bootstrap';
-    public $id_data, $date, $category, $name, $phone, $needs, $address, $store, $description, $marketplace, $response, $filter_date;
     public $perPage = 10, $search;
+    public $id_data, $date, $category, $name, $phone, $needs, $address, $store, $description, $marketplace, $response, $filter_date;
 
     public function render()
     {
