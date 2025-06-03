@@ -4,7 +4,7 @@
     @include('livewire.product.product-upvc.product-upvc-modal')
     <div class="d-flex align-items-center">
         <div>
-            <h3 class="fw-semibold mb-0">Data UPVC</h3>
+            <h3 class="mb-0 fw-semibold">Data UPVC</h3>
         </div>
         <div class="ms-auto">
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">Tambah <i class="fa-solid fa-circle-plus fa-fw ms-2"></i></button>
@@ -16,7 +16,7 @@
             <div class="row justify-content-between g-3">
                 <div class="col-12 col-lg-4">
                     <div class="row">
-                        <div class="col-lg-6 col-12 d-flex align-items-center gap-2">
+                        <div class="gap-2 col-lg-6 col-12 d-flex align-items-center">
                             <div>Lihat</div>
                             <select class="form-select" wire:model.live="perPage">
                                 <option value="10">10</option>
@@ -66,7 +66,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="10" class="fw-bold text-center">Belum Ada Data</td>
+                            <td colspan="10" class="text-center fw-bold">Belum Ada Data</td>
                         </tr>
                     @endforelse
                 </tbody>
